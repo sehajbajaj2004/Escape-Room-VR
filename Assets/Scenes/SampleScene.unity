@@ -2773,7 +2773,7 @@ GameObject:
   - component: {fileID: 3469287838189166092}
   m_Layer: 0
   m_Name: screw BR
-  m_TagString: Untagged
+  m_TagString: Screw
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9618,7 +9618,7 @@ GameObject:
   - component: {fileID: 7156856365772953878}
   m_Layer: 0
   m_Name: screw TR
-  m_TagString: Untagged
+  m_TagString: Screw
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12081,7 +12081,7 @@ GameObject:
   - component: {fileID: 9036786824531412225}
   m_Layer: 0
   m_Name: screw TL
-  m_TagString: Untagged
+  m_TagString: Screw
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
