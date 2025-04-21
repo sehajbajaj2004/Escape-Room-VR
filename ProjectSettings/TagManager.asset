@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CircleSlot
+  - SqaureSlot
+  - TriangleSlot
+  - Triangle
+  - Cube
+  - Cylinder
   layers:
   - Default
   - TransparentFX
