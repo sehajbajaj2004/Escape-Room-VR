@@ -5166,6 +5166,7 @@ GameObject:
   - component: {fileID: 8410102035974453076}
   - component: {fileID: 8320333588524387671}
   - component: {fileID: 2505681247413924282}
+  - component: {fileID: 8410102035974453077}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -12278,6 +12279,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3986568476198859915}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &8410102035974453077
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362220198545215002}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -462981019419857548, guid: f28f6a4ef826ecf468a5b3b1239b037b, type: 3}
 --- !u!1 &8435209003408780243
 GameObject:
   m_ObjectHideFlags: 0
