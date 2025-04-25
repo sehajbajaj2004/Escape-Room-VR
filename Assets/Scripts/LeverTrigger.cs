@@ -29,7 +29,7 @@ public class LeverTrigger : MonoBehaviour
         {
             float angle = leverHinge.angle;
 
-            if (angle <= -50f)
+            if (angle <= -100f)
             {
                 hasTriggered = true;
 
