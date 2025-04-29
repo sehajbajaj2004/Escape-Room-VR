@@ -822,7 +822,7 @@ GameObject:
   - component: {fileID: 412406686}
   - component: {fileID: 412406685}
   - component: {fileID: 412406690}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -936,7 +936,7 @@ Transform:
   m_GameObject: {fileID: 412406684}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.85985804, z: -0, w: 0.5105333}
-  m_LocalPosition: {x: -30.37, y: 4.353, z: -44.448}
+  m_LocalPosition: {x: -30.211, y: 1.832, z: -44.495}
   m_LocalScale: {x: 0.5227, y: 0.21775682, z: 0.5227}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -951,11 +951,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 412406684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47de6598f536d1444a1af2e7c6f52a64, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cbe8ce4677393741870012a7a404bec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 1077846903}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 412406686}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1044,56 +1045,6 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
-  m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 0
-  m_MatchAttachPosition: 1
-  m_MatchAttachRotation: 1
-  m_SnapToColliderVolume: 1
-  m_ReinitializeDynamicAttachEverySingleGrab: 1
-  m_AttachEaseInTime: 0.15
-  m_MovementType: 2
-  m_VelocityDamping: 1
-  m_VelocityScale: 1
-  m_AngularVelocityDamping: 1
-  m_AngularVelocityScale: 1
-  m_TrackPosition: 1
-  m_SmoothPosition: 0
-  m_SmoothPositionAmount: 8
-  m_TightenPosition: 0.1
-  m_TrackRotation: 1
-  m_SmoothRotation: 0
-  m_SmoothRotationAmount: 8
-  m_TightenRotation: 0.1
-  m_TrackScale: 1
-  m_SmoothScale: 0
-  m_SmoothScaleAmount: 8
-  m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
-  m_ThrowSmoothingDuration: 0.25
-  m_ThrowSmoothingCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_ThrowVelocityScale: 1.5
-  m_ThrowAngularVelocityScale: 1
-  m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
-  m_AttachPointCompatibilityMode: 0
-  m_StartingSingleGrabTransformers: []
-  m_StartingMultipleGrabTransformers: []
-  m_AddDefaultGrabTransformers: 1
 --- !u!1 &471610923
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,7 +1509,7 @@ GameObject:
   - component: {fileID: 890360539}
   - component: {fileID: 890360538}
   - component: {fileID: 890360543}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1672,7 +1623,7 @@ Transform:
   m_GameObject: {fileID: 890360537}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.85985804, z: -0, w: 0.5105333}
-  m_LocalPosition: {x: -30.406, y: 3.0366, z: -44.447}
+  m_LocalPosition: {x: -30.028, y: 0.997, z: -44.447}
   m_LocalScale: {x: 0.5227, y: 0.21775682, z: 0.5227}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1687,11 +1638,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 890360537}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47de6598f536d1444a1af2e7c6f52a64, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cbe8ce4677393741870012a7a404bec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 1077846903}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 890360539}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1780,56 +1732,6 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
-  m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 0
-  m_MatchAttachPosition: 1
-  m_MatchAttachRotation: 1
-  m_SnapToColliderVolume: 1
-  m_ReinitializeDynamicAttachEverySingleGrab: 1
-  m_AttachEaseInTime: 0.15
-  m_MovementType: 2
-  m_VelocityDamping: 1
-  m_VelocityScale: 1
-  m_AngularVelocityDamping: 1
-  m_AngularVelocityScale: 1
-  m_TrackPosition: 1
-  m_SmoothPosition: 0
-  m_SmoothPositionAmount: 8
-  m_TightenPosition: 0.1
-  m_TrackRotation: 1
-  m_SmoothRotation: 0
-  m_SmoothRotationAmount: 8
-  m_TightenRotation: 0.1
-  m_TrackScale: 1
-  m_SmoothScale: 0
-  m_SmoothScaleAmount: 8
-  m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
-  m_ThrowSmoothingDuration: 0.25
-  m_ThrowSmoothingCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_ThrowVelocityScale: 1.5
-  m_ThrowAngularVelocityScale: 1
-  m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
-  m_AttachPointCompatibilityMode: 0
-  m_StartingSingleGrabTransformers: []
-  m_StartingMultipleGrabTransformers: []
-  m_AddDefaultGrabTransformers: 1
 --- !u!1 &941610655
 GameObject:
   m_ObjectHideFlags: 0
@@ -8157,7 +8059,7 @@ GameObject:
   - component: {fileID: 2098793327}
   - component: {fileID: 2098793326}
   - component: {fileID: 2098793331}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8271,7 +8173,7 @@ Transform:
   m_GameObject: {fileID: 2098793325}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.85985804, z: -0, w: 0.5105333}
-  m_LocalPosition: {x: -29.869, y: 3.742, z: -43.765}
+  m_LocalPosition: {x: -29.729, y: 1.419, z: -43.765}
   m_LocalScale: {x: 0.5227, y: 0.21775682, z: 0.5227}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8286,11 +8188,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2098793325}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47de6598f536d1444a1af2e7c6f52a64, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cbe8ce4677393741870012a7a404bec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 1077846903}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 2098793327}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -8379,56 +8282,6 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
-  m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 0
-  m_MatchAttachPosition: 1
-  m_MatchAttachRotation: 1
-  m_SnapToColliderVolume: 1
-  m_ReinitializeDynamicAttachEverySingleGrab: 1
-  m_AttachEaseInTime: 0.15
-  m_MovementType: 2
-  m_VelocityDamping: 1
-  m_VelocityScale: 1
-  m_AngularVelocityDamping: 1
-  m_AngularVelocityScale: 1
-  m_TrackPosition: 1
-  m_SmoothPosition: 0
-  m_SmoothPositionAmount: 8
-  m_TightenPosition: 0.1
-  m_TrackRotation: 1
-  m_SmoothRotation: 0
-  m_SmoothRotationAmount: 8
-  m_TightenRotation: 0.1
-  m_TrackScale: 1
-  m_SmoothScale: 0
-  m_SmoothScaleAmount: 8
-  m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
-  m_ThrowSmoothingDuration: 0.25
-  m_ThrowSmoothingCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_ThrowVelocityScale: 1.5
-  m_ThrowAngularVelocityScale: 1
-  m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
-  m_AttachPointCompatibilityMode: 0
-  m_StartingSingleGrabTransformers: []
-  m_StartingMultipleGrabTransformers: []
-  m_AddDefaultGrabTransformers: 1
 --- !u!1 &2127670449
 GameObject:
   m_ObjectHideFlags: 0
@@ -11573,7 +11426,6 @@ GameObject:
   - component: {fileID: 212135311987630993}
   - component: {fileID: 8498020081433991574}
   - component: {fileID: 8498020081433991575}
-  - component: {fileID: 8498020081433991577}
   - component: {fileID: 8498020081433991576}
   m_Layer: 0
   m_Name: XR Origin (XR Rig)
@@ -14322,6 +14174,7 @@ GameObject:
   - component: {fileID: 2707245409387061682}
   - component: {fileID: 1714938218333281350}
   - component: {fileID: 8835409689941436748}
+  - component: {fileID: 8835409689941436749}
   m_Layer: 0
   m_Name: Object001
   m_TagString: Untagged
@@ -14552,34 +14405,7 @@ MonoBehaviour:
   sprintSpeed: 6
   maxBoostDuration: 5
   cooldownDuration: 10
---- !u!54 &8498020081433991576
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4551398900742690985}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &8498020081433991577
+--- !u!114 &8498020081433991576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14588,10 +14414,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4551398900742690985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a17bc3482fbe8a14c8ee06299bde03e6, type: 3}
+  m_Script: {fileID: 11500000, guid: c1a83edbdd8468e49b0e27d715f42773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRigidbody: {fileID: 8498020081433991576}
+  movementScript: {fileID: 4230200360704214800}
+  climbSpeed: 1
 --- !u!23 &8535133971028173687
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14788,6 +14615,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8835409689941436749
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8144394004287187530}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3292925553009838691, guid: 87b5df5a1c80f5a42be2fccae28cdfb5, type: 3}
 --- !u!4 &8877871456052695019
 Transform:
   m_ObjectHideFlags: 0
