@@ -12,6 +12,7 @@ TagManager:
   - Triangle
   - Cube
   - Lock
+  - Enemy
   layers:
   - Default
   - TransparentFX
