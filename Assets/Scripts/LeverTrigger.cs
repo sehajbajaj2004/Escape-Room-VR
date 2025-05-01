@@ -7,6 +7,7 @@ public class LeverTrigger : MonoBehaviour
     [Header("GameObjects to Disable")]
     public GameObject objectToDisable1;
     public GameObject objectToDisable2;
+    public GameObject objectToDisable3;
 
     [Header("GameObject to Enable")]
     public GameObject objectToEnable;
@@ -39,6 +40,8 @@ public class LeverTrigger : MonoBehaviour
 
                 if (objectToDisable2 != null)
                     objectToDisable2.SetActive(false);
+                if (objectToDisable3 != null)
+                    objectToDisable3.SetActive(false);
 
                 // Enable object
                 if (objectToEnable != null)
