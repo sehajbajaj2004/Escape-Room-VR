@@ -1,52 +1,111 @@
 using UnityEngine;
-using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(CharacterController))]
 public class Climber : MonoBehaviour
 {
-    private CharacterController characterController;
-    public static XRController climbingHand; // Using XRController instead of XRBaseController
+    [Header("References")]
+    public static XRBaseController climbingHand;
+    public Transform cameraOffset; // Reference to your XR Origin's CameraOffset
+    public ContinuousMoveProviderBase movementScript;
 
-    [Tooltip("Reference to your movement script")]
-    public MonoBehaviour movementScript;
+    [Header("Climbing Settings")]
+    public float climbSpeed = 1.5f;
+    public float maxArmLength = 0.7f; // Maximum reach distance
+    public float gravity = 9.81f;
 
-    [Tooltip("Climbing speed multiplier")]
-    public float climbSpeed = 1f;
+    private CharacterController character;
+    private Vector3 handAnchorPosition;
+    private Vector3 lastHandPosition;
+    private bool isClimbing;
+    private float initialCameraHeight;
 
-    private void Start()
+    void Start()
     {
-        characterController = GetComponent<CharacterController>();
-        if (characterController == null)
+        character = GetComponent<CharacterController>();
+        initialCameraHeight = cameraOffset.localPosition.y;
+
+        if (!cameraOffset)
+            cameraOffset = GetComponentInChildren<Camera>().transform.parent;
+    }
+
+    void Update()
+    {
+        if (isClimbing)
         {
-            Debug.LogError("Missing CharacterController on " + gameObject.name);
+            ClimbMovement();
+            ApplyArmStretch();
         }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        if (climbingHand != null)
+        if (isClimbing)
         {
-            if (movementScript != null) movementScript.enabled = false;
-            Climb();
-        }
-        else
-        {
-            if (movementScript != null) movementScript.enabled = true;
+            ApplyGravity();
         }
     }
 
-    private void Climb()
+    public void StartClimbing(XRBaseController controller)
     {
-        if (climbingHand == null || characterController == null) return;
+        climbingHand = controller;
+        handAnchorPosition = controller.transform.position;
+        lastHandPosition = handAnchorPosition;
+        isClimbing = true;
 
-        // Get the controller's device
-        InputDevice device = InputDevices.GetDeviceAtXRNode(climbingHand.controllerNode);
+        if (movementScript)
+            movementScript.enabled = false;
+    }
 
-        if (device.isValid && device.TryGetFeatureValue(CommonUsages.deviceVelocity, out Vector3 velocity))
+    public void StopClimbing()
+    {
+        isClimbing = false;
+        climbingHand = null;
+
+        if (movementScript)
+            movementScript.enabled = true;
+
+        // Reset camera offset
+        cameraOffset.localPosition = new Vector3(
+            cameraOffset.localPosition.x,
+            initialCameraHeight,
+            cameraOffset.localPosition.z
+        );
+    }
+
+    private void ClimbMovement()
+    {
+        if (climbingHand == null) return;
+
+        Vector3 handPositionDelta = climbingHand.transform.position - lastHandPosition;
+        Vector3 movement = -handPositionDelta * climbSpeed;
+
+        character.Move(transform.rotation * movement);
+        lastHandPosition = climbingHand.transform.position;
+    }
+
+    private void ApplyArmStretch()
+    {
+        if (climbingHand == null) return;
+
+        // Calculate arm stretch (how far hand moved from initial grab point)
+        float stretchAmount = Vector3.Distance(climbingHand.transform.position, handAnchorPosition);
+        float normalizedStretch = Mathf.Clamp01(stretchAmount / maxArmLength);
+
+        // Lower camera offset based on stretch
+        float newHeight = initialCameraHeight - (normalizedStretch * 0.3f); // Adjust 0.3f for desired effect
+        cameraOffset.localPosition = new Vector3(
+            cameraOffset.localPosition.x,
+            newHeight,
+            cameraOffset.localPosition.z
+        );
+    }
+
+    private void ApplyGravity()
+    {
+        if (!character.isGrounded)
         {
-            Vector3 movement = transform.rotation * -velocity * Time.fixedDeltaTime * climbSpeed;
-            characterController.Move(movement);
+            character.Move(Vector3.down * gravity * Time.fixedDeltaTime);
         }
     }
 }
