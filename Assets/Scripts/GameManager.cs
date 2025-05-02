@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        FindUIElements(); // Manually call for initial scene    
     }
 
     void Update()
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
                 int minutes = Mathf.FloorToInt(timeRemaining / 60);
                 int seconds = Mathf.FloorToInt(timeRemaining % 60);
                 timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+                Debug.Log("Time: " + timeRemaining);
             }
         }
     }
