@@ -595,7 +595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasToShow: {fileID: 855854612}
-  displayTime: 5
+  displayTime: 15
 --- !u!4 &1042142869
 Transform:
   m_ObjectHideFlags: 0
