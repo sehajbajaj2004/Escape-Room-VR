@@ -1,55 +1,52 @@
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(Collider))]
 public class ButtonPressDetector : MonoBehaviour
 {
-    [Header("References")]
+    [Header("Animation Settings")]
     public Animator doorAnimator;
     public string animationTriggerName = "OpenDoor";
+    public float pressDepth = 0.01f; // How far button moves when pressed
+    public float pressDuration = 0.5f;
     public float cooldownTime = 1f;
-    public AudioClip pressSound;
 
+    [Header("Feedback")]
+    public AudioClip pressSound;
+    public GameObject pressEffect; // Particle effect prefab
+
+    private Vector3 initialPosition;
     private AudioSource audioSource;
     private bool canPress = true;
-    private XRBaseInteractor currentInteractor;
+    private bool isPressed = false;
 
     void Start()
     {
+        initialPosition = transform.localPosition;
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.spatialBlend = 1f; // 3D sound
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (!canPress) return;
+        if (!canPress || isPressed) return;
 
-        // Check if it's a controller or hand
-        XRBaseInteractor interactor = other.GetComponentInParent<XRBaseInteractor>();
-        if (interactor != null && currentInteractor == null)
+        // Check if collision is from player's hand
+        if (other.CompareTag("Player"))
         {
-            currentInteractor = interactor;
             PressButton();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        XRBaseInteractor interactor = other.GetComponentInParent<XRBaseInteractor>();
-        if (interactor == currentInteractor)
-        {
-            currentInteractor = null;
         }
     }
 
     void PressButton()
     {
-        if (!canPress) return;
+        isPressed = true;
+        canPress = false;
 
-        // Trigger animation
+        // Trigger door animation
         if (doorAnimator != null)
         {
             doorAnimator.SetTrigger(animationTriggerName);
@@ -61,19 +58,52 @@ public class ButtonPressDetector : MonoBehaviour
             audioSource.PlayOneShot(pressSound);
         }
 
-        // Visual feedback
-        transform.localPosition -= new Vector3(0, 0.01f, 0);
+        // Visual effect
+        if (pressEffect != null)
+        {
+            Instantiate(pressEffect, transform.position, Quaternion.identity);
+        }
 
+        // Button press animation
+        StartCoroutine(MoveButton());
         StartCoroutine(ButtonCooldown());
+    }
+
+    System.Collections.IEnumerator MoveButton()
+    {
+        float elapsedTime = 0f;
+        Vector3 pressedPosition = initialPosition - new Vector3(0, pressDepth, 0);
+
+        // Press down
+        while (elapsedTime < pressDuration / 2)
+        {
+            transform.localPosition = Vector3.Lerp(
+                initialPosition,
+                pressedPosition,
+                elapsedTime / (pressDuration / 2));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Return up
+        elapsedTime = 0f;
+        while (elapsedTime < pressDuration / 2)
+        {
+            transform.localPosition = Vector3.Lerp(
+                pressedPosition,
+                initialPosition,
+                elapsedTime / (pressDuration / 2));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localPosition = initialPosition;
+        isPressed = false;
     }
 
     System.Collections.IEnumerator ButtonCooldown()
     {
-        canPress = false;
         yield return new WaitForSeconds(cooldownTime);
         canPress = true;
-
-        // Reset button position
-        transform.localPosition += new Vector3(0, 0.01f, 0);
     }
 }
