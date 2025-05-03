@@ -44,7 +44,9 @@ public class VRGunShooter : MonoBehaviour
         // Spawn bullet
         if (bulletPrefab != null && bulletSpawnPoint != null)
         {
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            Quaternion adjustedRotation = bulletSpawnPoint.rotation * Quaternion.Euler(0, 90, 0);
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, adjustedRotation);
+
             Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
             
             if (bulletRigidbody != null)

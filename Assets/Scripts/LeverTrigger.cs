@@ -22,21 +22,23 @@ public class LeverTrigger : MonoBehaviour
     [Header("Animations To Play")]
     public AnimationTarget[] animationsToPlay;
 
-    [Header("Sound Effects")]
-    public AudioClip leverPullSound;
-    public AudioClip mechanismSound;
-    [Range(0, 1)] public float soundVolume = 0.8f;
+    [Header("Sound GameObjects (with AudioSource)")]
+    public GameObject leverPullSoundObject;
+    public GameObject mechanismSoundObject;
 
-    private AudioSource audioSource;
+    private AudioSource leverPullSource;
+    private AudioSource mechanismSource;
+
     private bool hasTriggered = false;
     private bool soundPlayed = false;
 
     void Start()
     {
-        // Set up audio source
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.spatialBlend = 1f; // 3D sound
-        audioSource.playOnAwake = false;
+        if (leverPullSoundObject != null)
+            leverPullSource = leverPullSoundObject.GetComponent<AudioSource>();
+
+        if (mechanismSoundObject != null)
+            mechanismSource = mechanismSoundObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -45,10 +47,9 @@ public class LeverTrigger : MonoBehaviour
         {
             float angle = leverHinge.angle;
 
-            // Play sound when lever starts moving past threshold
-            if (angle <= -30f && !soundPlayed && leverPullSound != null)
+            if (angle <= -30f && !soundPlayed && leverPullSource != null)
             {
-                audioSource.PlayOneShot(leverPullSound, soundVolume);
+                leverPullSource.Play();
                 soundPlayed = true;
             }
 
@@ -63,21 +64,19 @@ public class LeverTrigger : MonoBehaviour
     {
         hasTriggered = true;
 
-        // Disable objects
         SetActiveState(objectToDisable1, false);
         SetActiveState(objectToDisable2, false);
         SetActiveState(objectToDisable3, false);
-
-        // Enable object
         SetActiveState(objectToEnable, true);
 
-        // Play mechanism sound
-        if (mechanismSound != null)
+        // Play looping mechanism sound
+        if (mechanismSource != null)
         {
-            audioSource.PlayOneShot(mechanismSound, soundVolume * 0.8f);
+            mechanismSource.loop = true;
+            mechanismSource.Play();
         }
 
-        // Play legacy animations
+        // Play animations
         foreach (var animTarget in animationsToPlay)
         {
             if (animTarget.targetObject != null)
@@ -103,10 +102,15 @@ public class LeverTrigger : MonoBehaviour
         }
     }
 
-    // Optional: Reset lever for multiple uses
     public void ResetLever()
     {
         hasTriggered = false;
         soundPlayed = false;
+
+        if (mechanismSource != null)
+        {
+            mechanismSource.Stop();
+            mechanismSource.loop = false;
+        }
     }
 }
