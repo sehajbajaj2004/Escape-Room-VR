@@ -1,23 +1,29 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class ButtonPressDetector : MonoBehaviour
+public class DoubleDoorButtonController : MonoBehaviour
 {
-    [Header("Animation Settings")]
-    public Animator doorAnimator;
-    public string animationTriggerName = "OpenDoor";
-    public float pressDepth = 0.01f; // How far button moves when pressed
+    [Header("Door Animations")]
+    public Animator leftDoorAnimator;
+    public Animator rightDoorAnimator;
+    public string openTriggerName = "Open";
+    public string closeTriggerName = "Close";
+
+    [Header("Button Settings")]
+    public float pressDepth = 0.02f;
     public float pressDuration = 0.5f;
     public float cooldownTime = 1f;
+    public bool isToggle = true; // Toggle or momentary button
 
-    [Header("Feedback")]
+    [Header("Sound Effects")]
     public AudioClip pressSound;
-    public GameObject pressEffect; // Particle effect prefab
+    public AudioClip releaseSound;
+    [Range(0, 1)] public float soundVolume = 0.8f;
 
-    private Vector3 initialPosition;
     private AudioSource audioSource;
-    private bool canPress = true;
-    private bool isPressed = false;
+    private Vector3 initialPosition;
+    private bool canInteract = true;
+    private bool doorsOpen = false;
 
     void Start()
     {
@@ -26,55 +32,76 @@ public class ButtonPressDetector : MonoBehaviour
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.spatialBlend = 1f; // 3D sound
+            audioSource.spatialBlend = 1f;
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (!canPress || isPressed) return;
+        if (!canInteract || !other.CompareTag("Player")) return;
 
-        // Check if collision is from player's hand
-        if (other.CompareTag("Player"))
+        if (isToggle)
         {
-            PressButton();
+            ToggleDoors();
+        }
+        else
+        {
+            OpenDoors();
         }
     }
 
-    void PressButton()
+    void OnTriggerExit(Collider other)
     {
-        isPressed = true;
-        canPress = false;
-
-        // Trigger door animation
-        if (doorAnimator != null)
+        if (!isToggle && other.CompareTag("Player"))
         {
-            doorAnimator.SetTrigger(animationTriggerName);
+            CloseDoors();
         }
-
-        // Play sound
-        if (pressSound != null)
-        {
-            audioSource.PlayOneShot(pressSound);
-        }
-
-        // Visual effect
-        if (pressEffect != null)
-        {
-            Instantiate(pressEffect, transform.position, Quaternion.identity);
-        }
-
-        // Button press animation
-        StartCoroutine(MoveButton());
-        StartCoroutine(ButtonCooldown());
     }
 
-    System.Collections.IEnumerator MoveButton()
+    void ToggleDoors()
     {
+        if (doorsOpen)
+        {
+            CloseDoors();
+        }
+        else
+        {
+            OpenDoors();
+        }
+    }
+
+    void OpenDoors()
+    {
+        if (!canInteract) return;
+
+        StartCoroutine(AnimateButton());
+        PlaySound(pressSound);
+
+        leftDoorAnimator.SetTrigger(openTriggerName);
+        rightDoorAnimator.SetTrigger(openTriggerName);
+        doorsOpen = true;
+    }
+
+    void CloseDoors()
+    {
+        if (!canInteract) return;
+
+        StartCoroutine(AnimateButton());
+        PlaySound(releaseSound);
+
+        leftDoorAnimator.SetTrigger(closeTriggerName);
+        rightDoorAnimator.SetTrigger(closeTriggerName);
+        doorsOpen = false;
+    }
+
+    System.Collections.IEnumerator AnimateButton()
+    {
+        canInteract = false;
+
+        // Press down
         float elapsedTime = 0f;
         Vector3 pressedPosition = initialPosition - new Vector3(0, pressDepth, 0);
 
-        // Press down
         while (elapsedTime < pressDuration / 2)
         {
             transform.localPosition = Vector3.Lerp(
@@ -98,12 +125,27 @@ public class ButtonPressDetector : MonoBehaviour
         }
 
         transform.localPosition = initialPosition;
-        isPressed = false;
+
+        if (!isToggle) yield return new WaitForSeconds(cooldownTime);
+        canInteract = true;
     }
 
-    System.Collections.IEnumerator ButtonCooldown()
+    void PlaySound(AudioClip clip)
     {
-        yield return new WaitForSeconds(cooldownTime);
-        canPress = true;
+        if (clip != null)
+        {
+            audioSource.PlayOneShot(clip, soundVolume);
+        }
     }
+
+#if UNITY_EDITOR
+    void OnValidate()
+    {
+        if (GetComponent<Collider>() == null)
+        {
+            gameObject.AddComponent<BoxCollider>();
+            Debug.Log("Added BoxCollider to " + gameObject.name);
+        }
+    }
+#endif
 }
