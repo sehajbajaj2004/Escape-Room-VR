@@ -7,28 +7,21 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public int playerLives = 3;
-    private float timeRemaining = 900f; // 15 minutes = 900 seconds
+    private float timeRemaining = 900f; // 15 minutes
 
-    private Text timerText;         // Reference to Timer Text
-    private Canvas playerLossCanvas; // Reference to PlayerLoss Canvas
+    private Text timerText;
+    private Canvas playerLossCanvas;
 
     void Awake()
     {
-        // Singleton Pattern
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        LoadGameState();
     }
 
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        FindUIElements(); // Manually call for initial scene    
+        FindUIElements();    
     }
 
     void Update()
@@ -47,7 +40,6 @@ public class GameManager : MonoBehaviour
                 int minutes = Mathf.FloorToInt(timeRemaining / 60);
                 int seconds = Mathf.FloorToInt(timeRemaining % 60);
                 timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-                Debug.Log("Time: " + timeRemaining);
             }
         }
     }
@@ -55,13 +47,20 @@ public class GameManager : MonoBehaviour
     public void LoseLife()
     {
         playerLives--;
+        SaveGameState();
+
         if (playerLossCanvas != null)
         {
             playerLossCanvas.enabled = true;
-            Invoke(nameof(HidePlayerLossCanvas), 2f); // Hide after 2 seconds
+            Invoke(nameof(HidePlayerLossCanvas), 2f);
         }
 
-        // Add logic here for what to do if lives reach 0 (optional)
+        // Optional: Game Over
+        if (playerLives <= 0)
+        {
+            Debug.Log("Game Over");
+            // Add Game Over logic here
+        }
     }
 
     private void HidePlayerLossCanvas()
@@ -70,28 +69,39 @@ public class GameManager : MonoBehaviour
             playerLossCanvas.enabled = false;
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Called when any scene is loaded
+        LoadGameState();
         FindUIElements();
     }
 
     private void FindUIElements()
     {
-        // Find the timer text inside the TimeCanvas
         GameObject timeCanvas = GameObject.Find("TimeCanvas");
         if (timeCanvas != null)
         {
             timerText = timeCanvas.GetComponentInChildren<Text>();
         }
 
-        // Find PlayerLoss canvas
         GameObject lossCanvasObj = GameObject.Find("PlayerLoss");
         if (lossCanvasObj != null)
         {
             playerLossCanvas = lossCanvasObj.GetComponent<Canvas>();
             playerLossCanvas.enabled = false;
         }
+    }
+
+    public void SaveGameState()
+    {
+        PlayerPrefs.SetInt("PlayerLives", playerLives);
+        PlayerPrefs.SetFloat("TimeRemaining", timeRemaining);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadGameState()
+    {
+        playerLives = PlayerPrefs.GetInt("PlayerLives", 3);
+        timeRemaining = PlayerPrefs.GetFloat("TimeRemaining", 900f);
     }
 
     void OnDestroy()
