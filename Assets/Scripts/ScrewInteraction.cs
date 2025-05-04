@@ -14,12 +14,18 @@ public class ScrewInteraction : MonoBehaviour
         {
             Animation screwAnim = other.GetComponent<Animation>();
             ScrewData screwData = other.GetComponent<ScrewData>();
+            AudioSource screwAudio = other.GetComponent<AudioSource>();
 
             if (screwAnim != null && screwData != null && !screwAnim.isPlaying)
             {
                 string animName = screwData.animationName;
                 if (screwAnim[animName] != null)
                 {
+                    // Play audio
+                    if (screwAudio != null)
+                        screwAudio.Play();
+
+                    // Play animation
                     screwAnim.Play(animName);
                     StartCoroutine(RemoveScrewAfterAnim(screwAnim, animName, other.gameObject));
                 }
@@ -35,7 +41,15 @@ public class ScrewInteraction : MonoBehaviour
     {
         yield return new WaitForSeconds(anim[animName].length);
 
-        screw.SetActive(false);
+        // Enable gravity and disable trigger
+        Rigidbody rb = screw.GetComponent<Rigidbody>();
+        if (rb != null)
+            rb.useGravity = true;
+
+        Collider col = screw.GetComponent<Collider>();
+        if (col != null)
+            col.isTrigger = false;
+
         screwCount++;
 
         if (screwCount >= 4 && grillInteractable != null)

@@ -14,9 +14,20 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        timeRemaining = 900f;
+
         Instance = this;
+        DontDestroyOnLoad(gameObject); // Keeps the same GameManager across scenes
         LoadGameState();
     }
+
+
 
     void Start()
     {
