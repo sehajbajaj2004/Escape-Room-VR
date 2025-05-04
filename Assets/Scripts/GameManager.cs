@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        timeRemaining = 900f;
 
         Instance = this;
         DontDestroyOnLoad(gameObject); // Keeps the same GameManager across scenes
@@ -82,9 +81,20 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        LoadGameState();
+        // If we're in Scene 1, reset the timer to 15 minutes
+        if (scene.buildIndex == 0) // or use: if (scene.name == "Scene1")
+        {
+            timeRemaining = 900f;
+            SaveGameState(); // Optional: Save the reset state
+        }
+        else
+        {
+            LoadGameState(); // Load previously saved time
+        }
+
         FindUIElements();
     }
+
 
     private void FindUIElements()
     {
