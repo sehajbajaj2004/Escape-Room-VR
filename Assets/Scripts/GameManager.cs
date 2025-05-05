@@ -91,73 +91,77 @@ public class GameManager : MonoBehaviour
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        Debug.Log("Scene Loaded: " + scene.name);
-
-        // Reassign timerText
-        if (timerText == null)
         {
-            GameObject timeCanvas = GameObject.Find("TimeCanvas");
-            if (timeCanvas != null)
+            Debug.Log("Scene Loaded: " + scene.name);
+
+            // Reassign timerText
+            if (timerText == null)
             {
-                timerText = timeCanvas.GetComponentInChildren<Text>();
-                Debug.Log("Timer Text reassigned from TimeCanvas");
+                GameObject timeCanvas = GameObject.Find("TimeCanvas");
+                if (timeCanvas != null)
+                {
+                    timerText = timeCanvas.GetComponentInChildren<Text>();
+                    Debug.Log("Timer Text reassigned from TimeCanvas");
+                }
+                else
+                {
+                    Debug.LogWarning("TimeCanvas not found in scene: " + scene.name);
+                }
+            }
+
+            // Reassign PlayerLoss canvas
+            if (playerLossCanvas == null)
+            {
+                GameObject lossCanvasObj = GameObject.Find("PlayerLoss");
+                if (lossCanvasObj != null)
+                {
+                    playerLossCanvas = lossCanvasObj.GetComponent<Canvas>();
+                }
+            }
+
+            if (playerLossCanvas != null)
+            {
+                playerLossCanvas.enabled = false;
+            }
+
+            // Update timer UI immediately
+            if (timerText != null)
+            {
+                int minutes = Mathf.FloorToInt(timeRemaining / 60);
+                int seconds = Mathf.FloorToInt(timeRemaining % 60);
+                timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            }
+
+            // Delay heart setup to ensure UI is ready
+            StartCoroutine(DelayedHeartReassign());
+        }
+
+        private System.Collections.IEnumerator DelayedHeartReassign()
+        {
+            yield return null; // Wait 1 frame
+
+            heartIcons.Clear();
+            GameObject healthCanvas = GameObject.Find("PlayerHealthCanvas");
+
+            if (healthCanvas != null)
+            {
+                Transform h1 = healthCanvas.transform.Find("h1");
+                Transform h2 = healthCanvas.transform.Find("h2");
+                Transform h3 = healthCanvas.transform.Find("h3");
+
+                if (h1 != null) heartIcons.Add(h1.gameObject);
+                if (h2 != null) heartIcons.Add(h2.gameObject);
+                if (h3 != null) heartIcons.Add(h3.gameObject);
+
+                Debug.Log("Hearts reassigned: " + heartIcons.Count);
+                UpdateHearts();
             }
             else
             {
-                Debug.LogWarning("TimeCanvas not found in scene: " + scene.name);
+                Debug.LogWarning("PlayerHealthCanvas not found in scene.");
             }
         }
 
-        // Reassign PlayerLoss canvas
-        if (playerLossCanvas == null)
-        {
-            GameObject lossCanvasObj = GameObject.Find("PlayerLoss");
-            if (lossCanvasObj != null)
-            {
-                playerLossCanvas = lossCanvasObj.GetComponent<Canvas>();
-            }
-        }
-
-        if (playerLossCanvas != null)
-        {
-            playerLossCanvas.enabled = false;
-        }
-
-        // Update timer display immediately
-        if (timerText != null)
-        {
-            int minutes = Mathf.FloorToInt(timeRemaining / 60);
-            int seconds = Mathf.FloorToInt(timeRemaining % 60);
-            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        }
-
-        // Find hearts again in the new scene
-        ReassignHearts();
-    }
-
-    void ReassignHearts()
-    {
-        heartIcons.Clear();
-        GameObject healthCanvas = GameObject.Find("PlayerHealthCanvas");
-
-        if (healthCanvas != null)
-        {
-            Transform h1 = healthCanvas.transform.Find("h1");
-            Transform h2 = healthCanvas.transform.Find("h2");
-            Transform h3 = healthCanvas.transform.Find("h3");
-
-            if (h1 != null) heartIcons.Add(h1.gameObject);
-            if (h2 != null) heartIcons.Add(h2.gameObject);
-            if (h3 != null) heartIcons.Add(h3.gameObject);
-
-            UpdateHearts();
-        }
-        else
-        {
-            Debug.LogWarning("PlayerHealthCanvas not found in scene.");
-        }
-    }
 
     void OnDestroy()
     {
