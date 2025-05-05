@@ -950,7 +950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasToShow: {fileID: 855854612}
   displayTime: 30
-  introAudioClip: {fileID: 8300000, guid: d914678d11b13fc41bc31601034a29b3, type: 3}
+  introAudioClip: {fileID: 8300000, guid: 6d538e3a4373b75439a593f009f30181, type: 3}
 --- !u!4 &1042142869
 Transform:
   m_ObjectHideFlags: 0
