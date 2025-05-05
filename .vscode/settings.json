@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Escape-Room-VR.sln"
+    "dotnet.defaultSolution": "new VR.sln"
 }

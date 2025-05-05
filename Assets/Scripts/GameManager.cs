@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,8 +10,11 @@ public class GameManager : MonoBehaviour
     public int playerLives = 3;
     private float timeRemaining = 900f; // 15 minutes
 
-    private Text timerText;
-    private Canvas playerLossCanvas;
+    [Header("UI References")]
+    public Text timerText;               // Assign in Inspector (optional)
+    public Canvas playerLossCanvas;      // Assign in Inspector (optional)
+
+    private List<GameObject> heartIcons = new List<GameObject>(); // h1, h2, h3
 
     void Awake()
     {
@@ -20,18 +24,18 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-
         Instance = this;
-        DontDestroyOnLoad(gameObject); // Keeps the same GameManager across scenes
-        LoadGameState();
+        DontDestroyOnLoad(gameObject);
     }
-
-
 
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        FindUIElements();    
+
+        if (playerLossCanvas != null)
+        {
+            playerLossCanvas.enabled = false;
+        }
     }
 
     void Update()
@@ -56,21 +60,20 @@ public class GameManager : MonoBehaviour
 
     public void LoseLife()
     {
-        playerLives--;
-        SaveGameState();
-
-        if (playerLossCanvas != null)
+        if (playerLives > 0)
         {
-            playerLossCanvas.enabled = true;
-            Invoke(nameof(HidePlayerLossCanvas), 2f);
+            playerLives--;
+
+            UpdateHearts();
+
+            if (playerLossCanvas != null)
+            {
+                playerLossCanvas.enabled = true;
+                Invoke(nameof(HidePlayerLossCanvas), 2f);
+            }
         }
 
-        // Optional: Game Over
-        if (playerLives <= 0)
-        {
-            Debug.Log("Game Over");
-            // Add Game Over logic here
-        }
+        // You can add game over logic here if playerLives <= 0
     }
 
     private void HidePlayerLossCanvas()
@@ -79,50 +82,81 @@ public class GameManager : MonoBehaviour
             playerLossCanvas.enabled = false;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    void UpdateHearts()
     {
-        // If we're in Scene 1, reset the timer to 15 minutes
-        if (scene.buildIndex == 0) // or use: if (scene.name == "Scene1")
+        for (int i = 0; i < heartIcons.Count; i++)
         {
-            timeRemaining = 900f;
-            SaveGameState(); // Optional: Save the reset state
+            heartIcons[i].SetActive(i < playerLives);
+        }
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Scene Loaded: " + scene.name);
+
+        // Reassign timerText
+        if (timerText == null)
+        {
+            GameObject timeCanvas = GameObject.Find("TimeCanvas");
+            if (timeCanvas != null)
+            {
+                timerText = timeCanvas.GetComponentInChildren<Text>();
+                Debug.Log("Timer Text reassigned from TimeCanvas");
+            }
+            else
+            {
+                Debug.LogWarning("TimeCanvas not found in scene: " + scene.name);
+            }
+        }
+
+        // Reassign PlayerLoss canvas
+        if (playerLossCanvas == null)
+        {
+            GameObject lossCanvasObj = GameObject.Find("PlayerLoss");
+            if (lossCanvasObj != null)
+            {
+                playerLossCanvas = lossCanvasObj.GetComponent<Canvas>();
+            }
+        }
+
+        if (playerLossCanvas != null)
+        {
+            playerLossCanvas.enabled = false;
+        }
+
+        // Update timer display immediately
+        if (timerText != null)
+        {
+            int minutes = Mathf.FloorToInt(timeRemaining / 60);
+            int seconds = Mathf.FloorToInt(timeRemaining % 60);
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
+
+        // Find hearts again in the new scene
+        ReassignHearts();
+    }
+
+    void ReassignHearts()
+    {
+        heartIcons.Clear();
+        GameObject healthCanvas = GameObject.Find("PlayerHealthCanvas");
+
+        if (healthCanvas != null)
+        {
+            Transform h1 = healthCanvas.transform.Find("h1");
+            Transform h2 = healthCanvas.transform.Find("h2");
+            Transform h3 = healthCanvas.transform.Find("h3");
+
+            if (h1 != null) heartIcons.Add(h1.gameObject);
+            if (h2 != null) heartIcons.Add(h2.gameObject);
+            if (h3 != null) heartIcons.Add(h3.gameObject);
+
+            UpdateHearts();
         }
         else
         {
-            LoadGameState(); // Load previously saved time
+            Debug.LogWarning("PlayerHealthCanvas not found in scene.");
         }
-
-        FindUIElements();
-    }
-
-
-    private void FindUIElements()
-    {
-        GameObject timeCanvas = GameObject.Find("TimeCanvas");
-        if (timeCanvas != null)
-        {
-            timerText = timeCanvas.GetComponentInChildren<Text>();
-        }
-
-        GameObject lossCanvasObj = GameObject.Find("PlayerLoss");
-        if (lossCanvasObj != null)
-        {
-            playerLossCanvas = lossCanvasObj.GetComponent<Canvas>();
-            playerLossCanvas.enabled = false;
-        }
-    }
-
-    public void SaveGameState()
-    {
-        PlayerPrefs.SetInt("PlayerLives", playerLives);
-        PlayerPrefs.SetFloat("TimeRemaining", timeRemaining);
-        PlayerPrefs.Save();
-    }
-
-    public void LoadGameState()
-    {
-        playerLives = PlayerPrefs.GetInt("PlayerLives", 3);
-        timeRemaining = PlayerPrefs.GetFloat("TimeRemaining", 900f);
     }
 
     void OnDestroy()
