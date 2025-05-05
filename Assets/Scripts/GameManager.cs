@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public int playerLives = 3;
-    private float timeRemaining = 900f; // 15 minutes
+    private float timeRemaining = 936f; // 15 minutes
 
     [Header("UI References")]
     public Text timerText;               // Assign in Inspector (optional)
