@@ -33,7 +33,7 @@ public class LoseLifeTrigger : MonoBehaviour
     {
         isCooldown = true;
         hazardCollider.isTrigger = false;
-        yield return new WaitForSeconds(10f); // Grace period
+        yield return new WaitForSeconds(5f); // Grace period
         hazardCollider.isTrigger = true;
         isCooldown = false;
     }
