@@ -15,7 +15,7 @@ public class RestrictMovementDuringAudio : MonoBehaviour
 
         if (introAudio != null && moveProvider != null)
         {
-            moveProvider.enabled = false; // Disable movement
+            moveProvider.moveSpeed = 0; // Disable movement
             StartCoroutine(ReEnableMovementAfterAudio());
         }
         else
@@ -32,6 +32,6 @@ public class RestrictMovementDuringAudio : MonoBehaviour
             yield return new WaitForSeconds(introAudio.clip.length);
         }
 
-        moveProvider.enabled = true; // Re-enable movement
+        moveProvider.moveSpeed = 3; // Re-enable movement
     }
 }
