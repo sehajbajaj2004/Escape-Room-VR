@@ -13,6 +13,7 @@ TagManager:
   - Cube
   - Lock
   - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX

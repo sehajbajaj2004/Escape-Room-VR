@@ -14,7 +14,12 @@ public class GuardAI : MonoBehaviour
     
     [Header("Combat Settings")]
     public float shootingRate = 0.5f;
-    public int health = 100;
+    public float bulletSpeed = 20f;
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
+    public AudioClip shootSound;
+    public float bulletLife = 3f;
+    private AudioSource audioSource;
     
     private NavMeshAgent agent;
     private Animator animator;
@@ -89,6 +94,33 @@ public class GuardAI : MonoBehaviour
         UpdateAnimation();
     }
     
+    // This method will be called by the animation event
+    public void FireBullet()
+    {
+        // Play shoot sound
+        if (shootSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(shootSound);
+        }
+
+        // Spawn bullet
+        if (bulletPrefab != null && bulletSpawnPoint != null)
+        {
+            Quaternion adjustedRotation = bulletSpawnPoint.rotation * Quaternion.Euler(0, 90, 0);
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, adjustedRotation);
+
+            Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
+
+            if (bulletRigidbody != null)
+            {
+                bulletRigidbody.velocity = bulletSpawnPoint.forward * bulletSpeed;
+            }
+
+            // Destroy bullet after some time
+            Destroy(bullet, bulletLife);
+        }
+    }
+    
     IEnumerator StartCombat()
     {
         isAiming = true;
@@ -107,7 +139,7 @@ public class GuardAI : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
         }
         
-        // Start shooting loop - this is the key fix
+        // Start shooting loop
         animator.SetBool("IsShooting", true);
     }
     
@@ -196,20 +228,31 @@ public class GuardAI : MonoBehaviour
         }
     }
     
-    public void TakeDamage(int damage)
+    void OnTriggerEnter(Collider other)
     {
         if (isDead) return;
         
-        health -= damage;
-        
-        if (health <= 0)
+        // Check if hit by a bullet
+        if (other.CompareTag("Bullet"))
         {
             Die();
+            
+            // Optional: Destroy the bullet
+            Destroy(other.gameObject);
         }
-        else
+    }
+    
+    void OnCollisionEnter(Collision collision)
+    {
+        if (isDead) return;
+        
+        // Check if hit by a bullet (in case bullet uses collision instead of trigger)
+        if (collision.gameObject.CompareTag("Bullet"))
         {
-            // Optional: Play hurt reaction
-            animator.SetTrigger("Hurt");
+            Die();
+            
+            // Optional: Destroy the bullet
+            Destroy(collision.gameObject);
         }
     }
     
@@ -238,6 +281,9 @@ public class GuardAI : MonoBehaviour
         // Optional: Disable collider to prevent further interactions
         Collider collider = GetComponent<Collider>();
         if (collider != null) collider.enabled = false;
+        
+        // Optional: Disable NavMeshAgent
+        if (agent != null) agent.enabled = false;
     }
     
     // Visualize detection radius and field of view in editor
@@ -258,5 +304,13 @@ public class GuardAI : MonoBehaviour
         
         Gizmos.DrawRay(transform.position, leftBoundary);
         Gizmos.DrawRay(transform.position, rightBoundary);
+        
+        // Draw bullet spawn point if assigned
+        if (bulletSpawnPoint != null)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawSphere(bulletSpawnPoint.position, 0.1f);
+            Gizmos.DrawLine(bulletSpawnPoint.position, bulletSpawnPoint.position + bulletSpawnPoint.forward * 0.5f);
+        }
     }
 }
