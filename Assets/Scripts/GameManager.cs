@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
             {
                 GameObject timeCanvas = GameObject.Find("TimeCanvas");
                 if (timeCanvas != null)
-                {
+                 {
                     timerText = timeCanvas.GetComponentInChildren<Text>();
                     Debug.Log("Timer Text reassigned from TimeCanvas");
                 }

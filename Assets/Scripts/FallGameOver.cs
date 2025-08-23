@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.XR;
 using System.Collections;
 
 public class FallDetectorZoneController : MonoBehaviour
 {
     [Header("References")]
-    public Transform player; // XR Origin tagged "Player"
+    public Transform player;
     public Collider fallTriggerCollider;
-    public GameObject gameOverPanel; // Assign in Inspector (keep disabled initially)
+    public GameObject gameOverPanel;
+    public GameObject vignetteEffect; // Assign your vignette GameObject here (keep disabled initially)
 
     [Header("Settings")]
-    public float enableHeight = 1.5f; // Height above which fall detection is active
-    public float gameOverDelay = 1f;  // Delay before showing GameOver panel
+    public float enableHeight = 1.5f;
+    public float gameOverDelay = 1f;
 
     private bool hasFallen = false;
 
@@ -19,7 +21,6 @@ public class FallDetectorZoneController : MonoBehaviour
         if (fallTriggerCollider == null)
             fallTriggerCollider = GetComponent<Collider>();
 
-        // Find player automatically if not assigned
         if (player == null)
         {
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -30,6 +31,9 @@ public class FallDetectorZoneController : MonoBehaviour
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
 
+        if (vignetteEffect != null)
+            vignetteEffect.SetActive(false);
+
         fallTriggerCollider.enabled = false;
     }
 
@@ -37,15 +41,11 @@ public class FallDetectorZoneController : MonoBehaviour
     {
         if (player == null) return;
 
-        // Enable collider only if player is above threshold height
         bool shouldEnable = player.position.y > enableHeight;
         fallTriggerCollider.enabled = shouldEnable;
 
-        // Reset fall detection when player is below threshold
         if (!shouldEnable)
-        {
             hasFallen = false;
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -61,12 +61,38 @@ public class FallDetectorZoneController : MonoBehaviour
 
     private IEnumerator GameOverRoutine()
     {
-        yield return new WaitForSeconds(1f); // wait 1 second
+        yield return new WaitForSeconds(gameOverDelay);
 
+        // Enable vignette + haptic feedback
+        if (vignetteEffect != null)
+            vignetteEffect.SetActive(true);
+
+        float hapticDuration = 2f;
+        TriggerHaptics(0.9f, hapticDuration);
+
+        // Wait for vibration duration before disabling vignette
+        yield return new WaitForSeconds(hapticDuration);
+
+        if (vignetteEffect != null)
+            vignetteEffect.SetActive(false);
+
+        // Show Game Over UI
         if (gameOverPanel != null)
             gameOverPanel.SetActive(true);
 
-        Time.timeScale = 0f; // Freeze game
+        Time.timeScale = 0f;
         Debug.Log("💀 GAME OVER!");
+    }
+
+    private void TriggerHaptics(float amplitude, float duration)
+    {
+        InputDevice leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+        InputDevice rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+
+        if (leftHand.isValid)
+            leftHand.SendHapticImpulse(0, amplitude, duration);
+
+        if (rightHand.isValid)
+            rightHand.SendHapticImpulse(0, amplitude, duration);
     }
 }

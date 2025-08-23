@@ -1078,6 +1078,55 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47984986}
   m_Mesh: {fileID: -8976884540148032650, guid: 1dd8e872f166b0147bb9fa521a10df8b, type: 3}
+--- !u!1 &49263128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 49263129}
+  - component: {fileID: 49263130}
+  m_Layer: 0
+  m_Name: Box Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &49263129
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49263128}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1680013153}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &49263130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49263128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 1
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: a6560a915ef98420e9faacc1c7438823, type: 2}
 --- !u!1 &49277958
 GameObject:
   m_ObjectHideFlags: 0
@@ -16878,7 +16927,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -21017,6 +21066,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 2079643349}
+  hapticAmplitude: 0.7
+  hapticDuration: 2
 --- !u!65 &1053458289
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23693,6 +23744,7 @@ MonoBehaviour:
   player: {fileID: 1680013153}
   fallTriggerCollider: {fileID: 1155199139}
   gameOverPanel: {fileID: 2079643349}
+  vignetteEffect: {fileID: 49263128}
   enableHeight: 1.5
   gameOverDelay: 2
 --- !u!4 &1155199138
@@ -23729,8 +23781,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.27738762, y: 12.508167, z: 5.686077}
-  m_Center: {x: 0.57168293, y: 2.8501396, z: 0.22336769}
+  m_Size: {x: 0.084337234, y: 9.118765, z: 5.686077}
+  m_Center: {x: 0.47515774, y: 4.544841, z: 0.22336769}
 --- !u!1 &1158904429
 GameObject:
   m_ObjectHideFlags: 0
@@ -39010,6 +39062,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 988760444}
+  - {fileID: 49263129}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 4.096, z: 0}
 --- !u!114 &1680013154
@@ -41040,37 +41093,6 @@ RectTransform:
   m_AnchoredPosition: {x: -32.69, y: 6.68}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1789523088
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1789523089}
-  m_Layer: 0
-  m_Name: FallHeightMarker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1789523089
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789523088}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29.944, y: 5.622, z: -43.693}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1793787220
 GameObject:
   m_ObjectHideFlags: 0
@@ -43698,6 +43720,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 2103293542}
+  hapticAmplitude: 0.7
+  hapticDuration: 2
 --- !u!65 &1918207839
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -46247,7 +46271,7 @@ Transform:
   m_GameObject: {fileID: 2022196176}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -286.04, y: -165.8, z: 52.3}
+  m_LocalPosition: {x: -634.78, y: -239.43, z: 71.4}
   m_LocalScale: {x: 4.0430026, y: 4.0430026, z: 4.0430026}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48004,7 +48028,7 @@ GameObject:
   - component: {fileID: 2079643351}
   - component: {fileID: 2079643350}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: GameOverCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55010,4 +55034,3 @@ SceneRoots:
   - {fileID: 3130556820114734208}
   - {fileID: 544610171}
   - {fileID: 1155199138}
-  - {fileID: 1789523089}
