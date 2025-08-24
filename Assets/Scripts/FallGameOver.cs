@@ -51,48 +51,18 @@ public class FallDetectorZoneController : MonoBehaviour
             hasFallen = true;
             Debug.Log("⚠️ FALL DETECTED! Starting LoseLife sequence...");
 
-            StartCoroutine(FallRoutine());
+            // Call LoseLife from GameManager
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.LoseLife();
+                Debug.Log("❤️ Player lost a life!");
+            }
+            else
+            {
+                Debug.LogError("❌ GameManager instance not found!");
+            }
+
+            // StartCoroutine(FallRoutine());
         }
-    }
-
-    private IEnumerator FallRoutine()
-    {
-        yield return new WaitForSeconds(gameOverDelay);
-
-        // Enable vignette + haptic feedback
-        if (vignetteEffect != null)
-            vignetteEffect.SetActive(true);
-
-        float hapticDuration = 2f;
-        TriggerHaptics(0.9f, hapticDuration);
-
-        // Wait for vibration duration before disabling vignette
-        yield return new WaitForSeconds(hapticDuration);
-
-        if (vignetteEffect != null)
-            vignetteEffect.SetActive(false);
-
-        // Call LoseLife from GameManager
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.LoseLife();
-            Debug.Log("❤️ Player lost a life!");
-        }
-        else
-        {
-            Debug.LogError("❌ GameManager instance not found!");
-        }
-    }
-
-    private void TriggerHaptics(float amplitude, float duration)
-    {
-        InputDevice leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-        InputDevice rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-
-        if (leftHand.isValid)
-            leftHand.SendHapticImpulse(0, amplitude, duration);
-
-        if (rightHand.isValid)
-            rightHand.SendHapticImpulse(0, amplitude, duration);
     }
 }

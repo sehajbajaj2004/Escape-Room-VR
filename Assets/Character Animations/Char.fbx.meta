@@ -16,7 +16,8 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'Hips' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -48,7 +49,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -82,7 +83,67 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: Char(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: body_1
+      parentName: Char(Clone)
+      position: {x: -8.881785e-18, y: 1.0135624, z: -0.0047981953}
+      rotation: {x: -0.000000037748947, y: 6.938894e-18, z: -1.0408341e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: boots
+      parentName: Char(Clone)
+      position: {x: -0.13605918, y: 0.05118909, z: -0.10775615}
+      rotation: {x: -0.000000038481772, y: -0.0975829, z: 0.000000005627719, w: 0.9952274}
+      scale: {x: 1, y: 1, z: 1}
+    - name: bullet
+      parentName: Char(Clone)
+      position: {x: 0.2150195, y: 1.0751477, z: 0.011871684}
+      rotation: {x: 0.7094048, y: -0.023242053, z: 0.025070487, w: 0.7039716}
+      scale: {x: 0.99999994, y: 0.9999998, z: 0.9999998}
+    - name: cigarette_2
+      parentName: Char(Clone)
+      position: {x: 0.024713451, y: 1.7115916, z: 0.1403609}
+      rotation: {x: 0.111926064, y: 0.21451908, z: -0.09056121, w: 0.96605015}
+      scale: {x: 0.99999994, y: 1.0000002, z: 0.9999999}
+    - name: clip
+      parentName: Char(Clone)
+      position: {x: 0.21980245, y: 1.1008724, z: -0.05887429}
+      rotation: {x: 0.81240135, y: -0.0189558, z: 0.02844997, w: 0.5820956}
+      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+    - name: face1
+      parentName: Char(Clone)
+      position: {x: 9.228742e-18, y: 1.7908764, z: 0.037221108}
+      rotation: {x: -0.00000003774895, y: -5.464379e-17, z: -2.5587175e-17, w: 1}
+      scale: {x: 1, y: 0.9999999, z: 0.9999999}
+    - name: meshes
+      parentName: Char(Clone)
+      position: {x: -0, y: 0.014536518, z: -0.06652346}
+      rotation: {x: -0.000000037748947, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: pistol
+      parentName: Char(Clone)
+      position: {x: 0.21897857, y: 1.1005198, z: -0.046827085}
+      rotation: {x: 0.71431094, y: -0.02306615, z: 0.025232421, w: 0.69899297}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: pistolow
+      parentName: Char(Clone)
+      position: {x: 0.21865866, y: 1.0975041, z: -0.042050853}
+      rotation: {x: 0.714311, y: -0.023066146, z: 0.025232425, w: 0.6989929}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: slide
+      parentName: Char(Clone)
+      position: {x: 0.213555, y: 1.0865684, z: 0.032877166}
+      rotation: {x: 0.71431094, y: -0.02306615, z: 0.025232421, w: 0.69899297}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: trigger
+      parentName: Char(Clone)
+      position: {x: 0.21549901, y: 1.028907, z: 0.006438471}
+      rotation: {x: 0.71431094, y: -0.02306615, z: 0.025232421, w: 0.69899297}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
