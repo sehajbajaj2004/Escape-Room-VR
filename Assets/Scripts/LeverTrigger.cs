@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class LeverTrigger : MonoBehaviour
 {
-    public HingeJoint leverHinge;
-
     [Header("GameObjects to Disable")]
     public GameObject objectToDisable1;
     public GameObject objectToDisable2;
@@ -30,7 +28,6 @@ public class LeverTrigger : MonoBehaviour
     private AudioSource mechanismSource;
 
     private bool hasTriggered = false;
-    private bool soundPlayed = false;
 
     void Start()
     {
@@ -41,29 +38,17 @@ public class LeverTrigger : MonoBehaviour
             mechanismSource = mechanismSoundObject.GetComponent<AudioSource>();
     }
 
-    void Update()
+    // 👉 Call this function from Inspector / UnityEvent
+    public void ActivateLever()
     {
-        if (!hasTriggered && leverHinge != null)
-        {
-            float angle = leverHinge.angle;
-
-            if (angle <= -30f && !soundPlayed && leverPullSource != null)
-            {
-                leverPullSource.Play();
-                soundPlayed = true;
-            }
-
-            if (angle <= -100f)
-            {
-                TriggerEffects();
-            }
-        }
-    }
-
-    void TriggerEffects()
-    {
+        if (hasTriggered) return;
         hasTriggered = true;
 
+        // Play lever pull sound once
+        if (leverPullSource != null)
+            leverPullSource.Play();
+
+        // Disable/Enable objects
         SetActiveState(objectToDisable1, false);
         SetActiveState(objectToDisable2, false);
         SetActiveState(objectToDisable3, false);
@@ -97,15 +82,12 @@ public class LeverTrigger : MonoBehaviour
     void SetActiveState(GameObject obj, bool state)
     {
         if (obj != null)
-        {
             obj.SetActive(state);
-        }
     }
 
     public void ResetLever()
     {
         hasTriggered = false;
-        soundPlayed = false;
 
         if (mechanismSource != null)
         {
