@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private Text timerText;
     [SerializeField] private Canvas playerHealthCanvas; 
-    [SerializeField] private Canvas gameOverCanvas;
+    [SerializeField] private GameObject gameOverCanvas;
     [SerializeField] private Canvas gameCompleteCanvas;
 
     [Header("Feedback")]
@@ -48,9 +48,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        gameOverCanvas.SetActive(false);
+        DisableAllCanvases();
+
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        DisableAllCanvases();
         UpdateTimerUI();
 
         if (vignette != null)
@@ -72,7 +74,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (gameOverCanvas != null && !gameOverCanvas.enabled)
+            if (gameOverCanvas != null)
             {
                 Debug.Log("Time Up! Game Over!");
                 ShowGameOver();
@@ -107,6 +109,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("All Lives Lost! Game Over!");
             ShowGameOver();
+            Time.timeScale = 0.0f;
         }
     }
 
@@ -143,7 +146,7 @@ public class GameManager : MonoBehaviour
         {
             GameObject goCanvasObj = GameObject.Find("GameOverCanvas");
             if (goCanvasObj != null)
-                gameOverCanvas = goCanvasObj.GetComponent<Canvas>();
+                gameOverCanvas = goCanvasObj;
         }
 
         // Game Complete Canvas
@@ -185,7 +188,7 @@ public class GameManager : MonoBehaviour
     #region Game States
     private void DisableAllCanvases()
     {
-        if (gameOverCanvas != null) gameOverCanvas.enabled = false;
+        if (gameOverCanvas != null) gameOverCanvas.SetActive(false);
         if (gameCompleteCanvas != null) gameCompleteCanvas.enabled = false;
     }
 
@@ -193,7 +196,7 @@ public class GameManager : MonoBehaviour
     {
         DisableAllCanvases();
         if (gameOverCanvas != null)
-            gameOverCanvas.enabled = true;
+            gameOverCanvas.SetActive(true);
     }
 
     public void ShowGameComplete()

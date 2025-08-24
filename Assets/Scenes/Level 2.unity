@@ -1796,6 +1796,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7726995504908139837, guid: 41eb82cff23118c41ac71376b7711c5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5854,7 +5859,7 @@ MonoBehaviour:
   timeRemaining: 900
   timerText: {fileID: 1273794789655736836}
   playerHealthCanvas: {fileID: 0}
-  gameOverCanvas: {fileID: 0}
+  gameOverCanvas: {fileID: 1386105878}
   gameCompleteCanvas: {fileID: 0}
   lifeLossAudio: {fileID: 0}
   globalVolume: {fileID: 0}
@@ -9999,6 +10004,12 @@ Transform:
   - {fileID: 1777186626}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1386105878 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7726995504908139837, guid: 41eb82cff23118c41ac71376b7711c5e,
+    type: 3}
+  m_PrefabInstance: {fileID: 199624295}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1411205139
 GameObject:
   m_ObjectHideFlags: 0

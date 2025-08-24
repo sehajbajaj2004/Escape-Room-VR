@@ -100,7 +100,7 @@ public class GuardAI : MonoBehaviour
         // Play shoot sound
         if (audioSource != null)
         {
-            audioSource.PlayOneShot();
+            audioSource.Play();
         }
 
         // Spawn bullet
