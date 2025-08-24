@@ -17,11 +17,21 @@ public class SpotlightDetector : MonoBehaviour
             // Trigger haptics immediately
             TriggerHaptics(hapticAmplitude, hapticDuration);
 
-            if (gameOverPanel != null)
-                gameOverPanel.SetActive(true);
+            //if (gameOverPanel != null)
+            //    gameOverPanel.SetActive(true);
 
-            Time.timeScale = 0f; // Freeze the game
-            Debug.Log("💡 Spotlight detected player -> GAME OVER!");
+            //Time.timeScale = 0f; // Freeze the game
+            //Debug.Log("💡 Spotlight detected player -> GAME OVER!");
+            // Call LoseLife from GameManager
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.LoseLife();
+                Debug.Log("❤️ Player lost a life!");
+            }
+            else
+            {
+                Debug.LogError("❌ GameManager instance not found!");
+            }
         }
     }
 
