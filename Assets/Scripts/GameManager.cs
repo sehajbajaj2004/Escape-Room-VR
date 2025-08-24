@@ -13,13 +13,13 @@ public class GameManager : MonoBehaviour
 
     [Header("Player Stats")]
     [SerializeField] private int playerLives = 3;
-    [SerializeField] private float timeRemaining = 900f; // 15 minutes (900 sec)
+    [SerializeField] private float timeRemaining = 934f; // 15 minutes (900 sec)
 
     [Header("UI References")]
     [SerializeField] private Text timerText;
     [SerializeField] private Canvas playerHealthCanvas; 
     [SerializeField] private GameObject gameOverCanvas;
-    [SerializeField] private Canvas gameCompleteCanvas;
+    [SerializeField] private GameObject gameCompleteCanvas;
 
     [Header("Feedback")]
     [SerializeField] private AudioSource lifeLossAudio;
@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
         {
             GameObject gcCanvasObj = GameObject.Find("GameCompleteCanvas");
             if (gcCanvasObj != null)
-                gameCompleteCanvas = gcCanvasObj.GetComponent<Canvas>();
+                gameCompleteCanvas = gcCanvasObj;
         }
 
         DisableAllCanvases();
@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
     private void DisableAllCanvases()
     {
         if (gameOverCanvas != null) gameOverCanvas.SetActive(false);
-        if (gameCompleteCanvas != null) gameCompleteCanvas.enabled = false;
+        if (gameCompleteCanvas != null) gameCompleteCanvas.SetActive(false);
     }
 
     private void ShowGameOver()
@@ -203,7 +203,7 @@ public class GameManager : MonoBehaviour
     {
         DisableAllCanvases();
         if (gameCompleteCanvas != null)
-            gameCompleteCanvas.enabled = true;
+            gameCompleteCanvas.SetActive(true);
     }
     #endregion
 
