@@ -17,9 +17,9 @@ public class GuardAI : MonoBehaviour
     public float bulletSpeed = 20f;
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
-    public AudioClip shootSound;
+    // public AudioClip shootSound;
     public float bulletLife = 3f;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     
     private NavMeshAgent agent;
     private Animator animator;
@@ -98,9 +98,9 @@ public class GuardAI : MonoBehaviour
     public void FireBullet()
     {
         // Play shoot sound
-        if (shootSound != null && audioSource != null)
+        if (audioSource != null)
         {
-            audioSource.PlayOneShot(shootSound);
+            audioSource.PlayOneShot();
         }
 
         // Spawn bullet

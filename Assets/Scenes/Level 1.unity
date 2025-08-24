@@ -1962,7 +1962,7 @@ MonoBehaviour:
   timeRemaining: 900
   timerText: {fileID: 3603991002857132171}
   playerHealthCanvas: {fileID: 5379470070527093905}
-  gameOverCanvas: {fileID: 0}
+  gameOverCanvas: {fileID: 114064807747181107}
   gameCompleteCanvas: {fileID: 0}
   lifeLossAudio: {fileID: 946463233}
   globalVolume: {fileID: 832575518}
@@ -2471,6 +2471,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41eb82cff23118c41ac71376b7711c5e, type: 3}
+--- !u!223 &114064807747181107 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 5471001774511821941, guid: 41eb82cff23118c41ac71376b7711c5e,
+    type: 3}
+  m_PrefabInstance: {fileID: 114064807747181106}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &116528946609714882
 GameObject:
   m_ObjectHideFlags: 0

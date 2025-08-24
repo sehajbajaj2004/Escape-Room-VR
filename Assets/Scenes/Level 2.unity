@@ -1744,7 +1744,7 @@ PrefabInstance:
     - target: {fileID: 4846175034286912916, guid: 41eb82cff23118c41ac71376b7711c5e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.974
+      value: 1.718
       objectReference: {fileID: 0}
     - target: {fileID: 4846175034286912916, guid: 41eb82cff23118c41ac71376b7711c5e,
         type: 3}
@@ -1769,12 +1769,12 @@ PrefabInstance:
     - target: {fileID: 4846175034286912916, guid: 41eb82cff23118c41ac71376b7711c5e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4846175034286912916, guid: 41eb82cff23118c41ac71376b7711c5e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.33
+      value: -1.313
       objectReference: {fileID: 0}
     - target: {fileID: 4846175034286912916, guid: 41eb82cff23118c41ac71376b7711c5e,
         type: 3}
@@ -1795,21 +1795,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameOverCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726995504908139837, guid: 41eb82cff23118c41ac71376b7711c5e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726995504908139837, guid: 41eb82cff23118c41ac71376b7711c5e,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9166727038897592889, guid: 41eb82cff23118c41ac71376b7711c5e,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7606,7 +7591,7 @@ PrefabInstance:
     - target: {fileID: 8273686224916579002, guid: 8bab0fc727e6a5a41a235534ba0986c2,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -44169,7 +44154,7 @@ PrefabInstance:
     - target: {fileID: 8273686224916579002, guid: 8bab0fc727e6a5a41a235534ba0986c2,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
