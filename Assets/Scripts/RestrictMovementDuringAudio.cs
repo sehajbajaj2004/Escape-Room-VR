@@ -6,6 +6,9 @@ public class RestrictMovementDuringAudio : MonoBehaviour
     [Header("Intro Audio Source")]
     public AudioSource introAudio; // Drag & drop your intro AudioSource here
 
+    [Header("GameObject to Enable After Audio")]
+    public GameObject objectToEnable; // Assign the GameObject you want to enable after audio
+
     private DynamicMoveProvider moveProvider;
 
     private void Start()
@@ -28,10 +31,17 @@ public class RestrictMovementDuringAudio : MonoBehaviour
     {
         if (introAudio.clip != null)
         {
-            // Wait for the duration of the clip (safer than isPlaying)
+            // Wait for the duration of the clip (safer than using isPlaying)
             yield return new WaitForSeconds(introAudio.clip.length);
         }
 
-        moveProvider.moveSpeed = 3; // Re-enable movement
+        // Re-enable movement
+        moveProvider.moveSpeed = 3;
+
+        // Enable the GameObject if assigned
+        if (objectToEnable != null)
+        {
+            objectToEnable.SetActive(true);
+        }
     }
 }
