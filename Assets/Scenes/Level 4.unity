@@ -6101,7 +6101,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8400b8c5ccf37744388385076a244abc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2a86cc44a36fd034fbcf307e8e0ca1c6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22868,7 +22868,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c4f38b658af9d834e97c8fe9034dd087, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 29c4df46d077e9e4f9b9c202f2d39169, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -42724,7 +42724,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 625b257b0f5c7dd44be8d1e3f719c417, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b4420738fdc9d4348b3b2afb44fa1d32, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -47139,6 +47139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   introAudio: {fileID: 123384723}
+  objectToEnable: {fileID: 0}
 --- !u!4 &1740952711
 Transform:
   m_ObjectHideFlags: 0
