@@ -4,9 +4,9 @@ public class CanvasActivatorOnPlayerCollision : MonoBehaviour
 {
     public GameObject canvasToEnable;
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collider.gameObject.CompareTag("Player"))
         {
             if (canvasToEnable != null)
             {
