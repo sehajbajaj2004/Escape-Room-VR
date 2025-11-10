@@ -17,6 +17,10 @@ TagManager:
   - Enemy Bullet
   - PlayerHand
   - WildFire
+  - RedWire
+  - BlueWire
+  - YellowWire
+  - PinkWire
   layers:
   - Default
   - TransparentFX
