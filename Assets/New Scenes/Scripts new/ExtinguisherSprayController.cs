@@ -10,14 +10,17 @@ public class ExtinguisherSprayController : MonoBehaviour
     public GameObject steamPrefab;
 
     [Header("Input Actions")]
-    public InputActionReference leftTriggerAction;  // Assign Left Trigger
-    public InputActionReference rightTriggerAction; // Assign Right Trigger
+    public InputActionReference leftTriggerAction;
+    public InputActionReference rightTriggerAction;
 
     [Header("Audio")]
     public AudioSource steamAudioSource;
 
     [Header("Grab Settings")]
-    public XRGrabInteractable grabInteractable; // Assign the XRGrabInteractable component
+    public XRGrabInteractable grabInteractable;
+
+    [Header("Wood Object (Assign in Inspector)")]
+    public GameObject woodObject;   // <-- NEW: Drag the wood parent object here
 
     private HashSet<GameObject> extinguishedFires = new HashSet<GameObject>();
     private int fireCount = 0;
@@ -39,14 +42,11 @@ public class ExtinguisherSprayController : MonoBehaviour
         if (steamParticles == null || grabInteractable == null)
             return;
 
-        // ✅ Check if either hand is grabbing
         bool isGrabbed = grabInteractable.isSelected;
 
-        // ✅ Read trigger values from both hands
         float leftTrigger = leftTriggerAction != null ? leftTriggerAction.action.ReadValue<float>() : 0f;
         float rightTrigger = rightTriggerAction != null ? rightTriggerAction.action.ReadValue<float>() : 0f;
 
-        // ✅ Trigger steam if held and either trigger is pressed
         if (isGrabbed && (leftTrigger > 0.1f || rightTrigger > 0.1f))
         {
             if (!steamParticles.isPlaying)
@@ -80,7 +80,13 @@ public class ExtinguisherSprayController : MonoBehaviour
 
             Debug.Log($"{other.name} extinguished!");
 
-            // ✅ Spawn steam effect at fire location
+            // ✅ Disable wood object assigned in inspector
+            if (woodObject != null)
+            {
+                woodObject.SetActive(false);
+            }
+
+            // Spawn steam effect
             if (steamPrefab != null)
             {
                 GameObject steam = Instantiate(
