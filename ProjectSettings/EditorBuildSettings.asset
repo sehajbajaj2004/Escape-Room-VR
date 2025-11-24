@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/L1 Prison Scenes/Level 4.unity
     guid: 088d3f401d3065f4b81b1fd30252ba9c
+  - enabled: 1
+    path: Assets/L2 Cruise Scenes/Room Scene.unity
+    guid: e6aea953f1fee38499dd920e18409d3f
+  - enabled: 1
+    path: Assets/L2 Cruise Scenes/Lobby Scene (Dev).unity
+    guid: 2a1815aa585ff7a44843615ab0b73ce5
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 11cd5e32ba6cae84ea12aaf8e26bf312,
       type: 2}
