@@ -21,6 +21,7 @@ TagManager:
   - BlueWire
   - YellowWire
   - PinkWire
+  - CluePlane
   layers:
   - Default
   - TransparentFX
