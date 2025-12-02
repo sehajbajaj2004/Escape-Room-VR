@@ -2365,8 +2365,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cd772d0fa3c7c499b5effe63928bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  correctPassword: 2470
+  passSequence: 2401
+  requiredPressCounts: 02000000040000000000000001000000
   doorAnimator: {fileID: 1589281021}
+  openTrigger: Open
   buttonSound: {fileID: 0}
   successSound: {fileID: 1850279009}
   errorSound: {fileID: 625624549}
@@ -4671,8 +4673,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.023506856, y: 0.036889523, z: 0.001251692}
-  m_Center: {x: 0.000025430783, y: 0.0011262359, z: 0.00062583515}
+  m_Size: {x: 0.023506876, y: 0.036889523, z: 0.0024046074}
+  m_Center: {x: 0.000025430918, y: 0.0011262358, z: 0.001202293}
 --- !u!23 &1060642409
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5303,7 +5305,7 @@ Transform:
   m_GameObject: {fileID: 1241216125}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.739, y: 0.069859095, z: 1.755}
+  m_LocalPosition: {x: -3.577, y: 0.069859095, z: 1.755}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5328,8 +5330,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.15609026, y: 2.6402912, z: 1.1477185}
-  m_Center: {x: -0.09836149, y: 0.8201456, z: 0.073859274}
+  m_Size: {x: 0.016743898, y: 2.6402912, z: 1.1477185}
+  m_Center: {x: -0.16803467, y: 0.8201456, z: 0.073859274}
 --- !u!1 &1267295272
 GameObject:
   m_ObjectHideFlags: 0
@@ -7268,8 +7270,8 @@ GameObject:
   - component: {fileID: 1743472085}
   - component: {fileID: 1743472087}
   - component: {fileID: 1743472086}
-  - component: {fileID: 1743472088}
   - component: {fileID: 1743472089}
+  - component: {fileID: 1743472090}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -7377,7 +7379,21 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!65 &1743472088
+--- !u!114 &1743472089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743472084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56756ce11a312de499044dac443ce4e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToReveal: {fileID: 1060642406}
+  planeTag: CluePlane
+--- !u!65 &1743472090
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7396,22 +7412,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1773.717, y: 2294.278, z: 34250.28}
-  m_Center: {x: -255.02074, y: -46.382725, z: 18668.64}
---- !u!114 &1743472089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1743472084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56756ce11a312de499044dac443ce4e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToReveal: {fileID: 1060642406}
-  planeTag: CluePlane
+  m_Size: {x: 11.739779, y: 10.296642, z: 135.26463}
+  m_Center: {x: 8.128467, y: -2.857079, z: 103.269455}
 --- !u!1 &1850279007
 GameObject:
   m_ObjectHideFlags: 0
@@ -10898,7 +10900,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.489, y: 0.685, z: -2.469}
-  m_LocalScale: {x: 0.5669, y: 0.5669, z: 0.5669}
+  m_LocalScale: {x: 0.8591193, y: 0.8591193, z: 0.8591193}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8896876475247874695}
@@ -10915,7 +10917,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.653, y: 0.685, z: -2.469}
-  m_LocalScale: {x: 0.5669, y: 0.5669, z: 0.5669}
+  m_LocalScale: {x: 0.8591193, y: 0.8591193, z: 0.8591193}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8896876474996248995}
@@ -10932,7 +10934,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.335, y: 0.685, z: -2.469}
-  m_LocalScale: {x: 0.5669, y: 0.5669, z: 0.5669}
+  m_LocalScale: {x: 0.8591193, y: 0.8591193, z: 0.8591193}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8896876475558335755}
@@ -10949,7 +10951,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.183, y: 0.685, z: -2.469}
-  m_LocalScale: {x: 0.5669, y: 0.5669, z: 0.5669}
+  m_LocalScale: {x: 0.8591193, y: 0.8591193, z: 0.8591193}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8896876475983049419}
@@ -11296,7 +11298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27f2892e67e9fd47aaa20610d610dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  digit: 0
+  digit: 1
   keypadController: {fileID: 476774913}
 --- !u!1 &3399821747267504725
 GameObject:
@@ -11328,7 +11330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27f2892e67e9fd47aaa20610d610dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  digit: 7
+  digit: 0
   keypadController: {fileID: 476774913}
 --- !u!1 &3399821747712019929
 GameObject:
