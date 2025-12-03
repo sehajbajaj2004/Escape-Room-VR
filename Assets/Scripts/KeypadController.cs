@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class KeypadController : MonoBehaviour
 {
@@ -7,8 +6,15 @@ public class KeypadController : MonoBehaviour
     [Tooltip("Sequence of digits (e.g. \"2401\").")]
     [SerializeField] private string passSequence = "2401";
 
-    [Tooltip("Required number of presses for each digit in the sequence. Array length must match passSequence length.")]
+    [Tooltip("Required number of presses for each digit.")]
     [SerializeField] private int[] requiredPressCounts = new int[] { 2, 4, 0, 1 };
+
+    [Header("Indicators")]
+    [Tooltip("Red indicators for each digit in order.")]
+    public GameObject[] redIndicators;
+
+    [Tooltip("Green indicators for each digit in order.")]
+    public GameObject[] greenIndicators;
 
     [Header("Door Animation")]
     [SerializeField] private Animator doorAnimator;
@@ -19,93 +25,81 @@ public class KeypadController : MonoBehaviour
     [SerializeField] private AudioSource successSound;
     [SerializeField] private AudioSource errorSound;
 
-    // runtime state
-    private int currentIndex = 0;      // which digit in the sequence we're on
-    private int currentPressCount = 0; // how many times current digit was pressed
+    private int currentIndex = 0;
+    private int currentPressCount = 0;
 
     private void Start()
     {
-        // Basic validation
-        if (string.IsNullOrEmpty(passSequence))
-            Debug.LogError("KeypadController: passSequence is empty.");
-
-        if (requiredPressCounts == null || requiredPressCounts.Length != passSequence.Length)
-            Debug.LogWarning("KeypadController: requiredPressCounts length does not match passSequence length. Resizing/initializing to defaults.");
-
-        // If lengths mismatch, try to resize to safe defaults (1 press per digit)
-        if (requiredPressCounts == null || requiredPressCounts.Length != passSequence.Length)
+        // Reset indicators at start
+        for (int i = 0; i < redIndicators.Length; i++)
         {
-            requiredPressCounts = new int[passSequence.Length];
-            for (int i = 0; i < requiredPressCounts.Length; i++) requiredPressCounts[i] = 1;
+            if (redIndicators[i] != null) redIndicators[i].SetActive(true);
+            if (greenIndicators[i] != null) greenIndicators[i].SetActive(false);
         }
 
-        // Immediately advance past any zero-press digits at the start
-        TryAdvanceZeroPressDigits();
+        TryAdvanceZeroPressDigits(); // auto-skip any 0-press digits
     }
 
-    /// <summary>
-    /// Call this from each keypad button (e.g. KeypadButton.OnButtonPressed)
-    /// with the digit string (e.g. "2", "4", "0", "1").
-    /// </summary>
     public void EnterDigit(string digit)
     {
-        if (string.IsNullOrEmpty(digit) || digit.Length != 1)
-        {
-            Debug.LogWarning("KeypadController: EnterDigit received invalid digit: " + digit);
-            return;
-        }
-
-        // Play generic button sound if assigned
         if (buttonSound != null) buttonSound.Play();
 
-        // If sequence already complete, ignore until reset (or reset immediately)
+        // If sequence complete, ignore
         if (currentIndex >= passSequence.Length)
             return;
 
-        // Expected digit at current index
         char expected = passSequence[currentIndex];
 
+        // Wrong digit → reset everything
         if (digit[0] != expected)
         {
-            // Wrong digit — reset and play error sound
-            Debug.Log($"KeypadController: Wrong digit '{digit}' pressed. Expected '{expected}'. Resetting sequence.");
             if (errorSound != null) errorSound.Play();
             ResetSequence();
             return;
         }
 
-        // Correct digit pressed for this stage — count it
+        // Correct digit pressed
         currentPressCount++;
-        Debug.Log($"KeypadController: Correct digit '{digit}' press #{currentPressCount}/{requiredPressCounts[currentIndex]}");
 
-        // If required presses met for this digit, advance to next digit
+        // If the required number of presses reached → update indicator
         if (currentPressCount >= requiredPressCounts[currentIndex])
         {
+            // Turn Red OFF, Green ON
+            if (redIndicators[currentIndex] != null)
+                redIndicators[currentIndex].SetActive(false);
+
+            if (greenIndicators[currentIndex] != null)
+                greenIndicators[currentIndex].SetActive(true);
+
             currentIndex++;
             currentPressCount = 0;
-            Debug.Log($"KeypadController: Advanced to index {currentIndex}.");
 
-            // Auto-advance through any subsequent digits that require 0 presses
             TryAdvanceZeroPressDigits();
         }
 
-        // If sequence finished, trigger success
+        // Entire sequence complete
         if (currentIndex >= passSequence.Length)
         {
-            Debug.Log("KeypadController: Sequence complete — unlocking.");
             if (successSound != null) successSound.Play();
-            if (doorAnimator != null) doorAnimator.SetTrigger(openTrigger);
-            // Reset so puzzle can be attempted again later
+            if (doorAnimator != null)
+                doorAnimator.SetTrigger(openTrigger);
+
             ResetSequence();
         }
     }
 
     private void TryAdvanceZeroPressDigits()
     {
-        // While next digit requires 0 presses, advance
-        while (currentIndex < passSequence.Length && requiredPressCounts[currentIndex] == 0)
+        while (currentIndex < passSequence.Length &&
+               requiredPressCounts[currentIndex] == 0)
         {
-            Debug.Log($"KeypadController: Auto-advancing index {currentIndex} (0 presses required).");
+            // Turn indicators ON instantly for zero-press digits
+            if (redIndicators[currentIndex] != null)
+                redIndicators[currentIndex].SetActive(false);
+
+            if (greenIndicators[currentIndex] != null)
+                greenIndicators[currentIndex].SetActive(true);
+
             currentIndex++;
         }
     }
@@ -114,7 +108,14 @@ public class KeypadController : MonoBehaviour
     {
         currentIndex = 0;
         currentPressCount = 0;
-        // Also auto-skip initial zeros after reset
-        TryAdvanceZeroPressDigits();
+
+        // Reset indicators
+        for (int i = 0; i < redIndicators.Length; i++)
+        {
+            if (redIndicators[i] != null) redIndicators[i].SetActive(true);
+            if (greenIndicators[i] != null) greenIndicators[i].SetActive(false);
+        }
+
+        TryAdvanceZeroPressDigits(); // handle zero-press digits again
     }
 }

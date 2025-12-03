@@ -2723,6 +2723,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   passSequence: 2401
   requiredPressCounts: 02000000040000000000000001000000
+  redIndicators:
+  - {fileID: 2050139957}
+  - {fileID: 1427269637}
+  - {fileID: 873207533}
+  - {fileID: 1806404762}
+  greenIndicators:
+  - {fileID: 732398482}
+  - {fileID: 786258298}
+  - {fileID: 1991356596}
+  - {fileID: 1791301464}
   doorAnimator: {fileID: 1589281021}
   openTrigger: Open
   buttonSound: {fileID: 0}
