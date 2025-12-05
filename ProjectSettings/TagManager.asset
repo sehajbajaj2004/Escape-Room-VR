@@ -22,6 +22,11 @@ TagManager:
   - YellowWire
   - PinkWire
   - CluePlane
+  - LeftHand
+  - RightHand
+  - steering wheel
+  - key
+  - FireBlazer
   layers:
   - Default
   - TransparentFX
