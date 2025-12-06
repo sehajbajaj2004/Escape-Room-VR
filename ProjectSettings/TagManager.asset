@@ -27,6 +27,10 @@ TagManager:
   - steering wheel
   - key
   - FireBlazer
+  - FireStatue
+  - WaterStatue
+  - WindStatue
+  - EarthStatue
   layers:
   - Default
   - TransparentFX
