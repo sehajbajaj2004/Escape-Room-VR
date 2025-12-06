@@ -23,6 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/L2 Cruise Scenes/Lobby Scene (Dev).unity
     guid: 2a1815aa585ff7a44843615ab0b73ce5
+  - enabled: 1
+    path: Assets/L2 Cruise Scenes/Ship Deck.unity
+    guid: c48e9b064a8e664479c396276e2c02a0
+  - enabled: 1
+    path: Assets/L2 Cruise Scenes/BoatRow.unity
+    guid: 861b4ff1065ba9645ad6ae871259de40
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 11cd5e32ba6cae84ea12aaf8e26bf312,
       type: 2}

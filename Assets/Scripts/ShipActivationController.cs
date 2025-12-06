@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Content.Interaction;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class ShipActivationController : MonoBehaviour
 {
@@ -23,7 +25,10 @@ public class ShipActivationController : MonoBehaviour
     public string triggerName = "Open";
 
     [Header("Boat Rigidbody")]
-    public Rigidbody boatRigidbody;  // Assign in inspector
+    public Rigidbody boatRigidbody;
+
+    [Header("Scene Change Delay (Seconds)")]
+    public float delayBeforeSceneChange = 3f;
 
     void Start()
     {
@@ -32,12 +37,9 @@ public class ShipActivationController : MonoBehaviour
 
         pushButton.onPress.AddListener(OnButtonPressed);
 
-        // Ensure initial state
         if (boatRigidbody != null)
             boatRigidbody.isKinematic = true;
     }
-
-    // ---------------- SOCKET EVENTS ----------------
 
     void OnSteeringWheelPlaced(SelectEnterEventArgs args)
     {
@@ -55,29 +57,25 @@ public class ShipActivationController : MonoBehaviour
         }
     }
 
-    // ---------------- OPTIONAL FUEL FUNCTION ----------------
     public void FuelFilled()
     {
         fuelFilled = true;
         Debug.Log("Fuel has been filled!");
     }
 
-    // ---------------- PUSH BUTTON ----------------
-
     void OnButtonPressed()
     {
         if (AllConditionsMet())
         {
-            // Play deck animations
+            // Play deck animations immediately
             deckAnim1.SetTrigger(triggerName);
             deckAnim2.SetTrigger(triggerName);
 
-            // Enable boat physics
-            if (boatRigidbody != null)
-            {
-                boatRigidbody.isKinematic = false;
-                Debug.Log("Boat physics activated!");
-            }
+            // Delay the boat physics activation by 1 second
+            StartCoroutine(EnableBoatPhysicsAfterDelay());
+
+            // Start delayed scene change
+            StartCoroutine(ChangeSceneAfterDelay());
 
             Debug.Log("Ship deck opening triggered!");
         }
@@ -90,5 +88,22 @@ public class ShipActivationController : MonoBehaviour
     bool AllConditionsMet()
     {
         return steeringWheelSnapped && keySnapped && fuelFilled;
+    }
+
+    IEnumerator EnableBoatPhysicsAfterDelay()
+    {
+        yield return new WaitForSeconds(1f);  // <--- Delay added
+
+        if (boatRigidbody != null)
+        {
+            boatRigidbody.isKinematic = false;
+            Debug.Log("Boat physics activated after delay!");
+        }
+    }
+
+    IEnumerator ChangeSceneAfterDelay()
+    {
+        yield return new WaitForSeconds(delayBeforeSceneChange);
+        SceneManager.LoadScene(7);
     }
 }
