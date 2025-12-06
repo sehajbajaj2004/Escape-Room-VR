@@ -6,8 +6,7 @@ public class StatuePuzzleManager : MonoBehaviour
     [Header("Socket Interactors")]
     public XRSocketInteractor fireSocket;
     public XRSocketInteractor waterSocket;
-    public XRSocketInteractor windSocket;
-    public XRSocketInteractor earthSocket;
+    public XRSocketInteractor lightningSocket;  // NEW socket
 
     [Header("Objects to Enable On Success")]
     public GameObject light1;
@@ -26,11 +25,10 @@ public class StatuePuzzleManager : MonoBehaviour
     {
         if (puzzleCompleted) return;
 
-        // Check if all statues are correctly placed
+        // Check all 3 statues
         if (IsCorrectStatue(fireSocket, "FireStatue") &&
             IsCorrectStatue(waterSocket, "WaterStatue") &&
-            IsCorrectStatue(windSocket, "WindStatue") &&
-            IsCorrectStatue(earthSocket, "EarthStatue"))
+            IsCorrectStatue(lightningSocket, "LightningStatue"))
         {
             Debug.Log("All statues placed correctly! Puzzle Completed.");
 
@@ -47,10 +45,8 @@ public class StatuePuzzleManager : MonoBehaviour
     {
         if (socket == null) return false;
 
-        // Check if socket has an object
         if (socket.selectTarget != null)
         {
-            // Check tag
             return socket.selectTarget.CompareTag(requiredTag);
         }
 
