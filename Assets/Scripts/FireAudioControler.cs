@@ -3,16 +3,19 @@
 public class FireAudioManager : MonoBehaviour
 {
     [Header("Fire Particle Systems")]
-    public ParticleSystem[] fireParticles;   // <-- Array of all fire particle systems
+    public ParticleSystem[] fireParticles;   // All fire particle systems
 
-    [Header("Fire Audio Source")]
-    public AudioSource fireAudio;           // <-- One shared audio source
+    [Header("Primary Fire Audio Source")]
+    public AudioSource fireAudio;           // Main fire loop audio
+
+    [Header("Secondary Fire Audio Source")]
+    public AudioSource secondaryFireAudio;  // Additional fire audio
 
     private bool audioPlaying = false;
 
     void Update()
     {
-        if (fireParticles.Length == 0 || fireAudio == null)
+        if (fireParticles.Length == 0)
             return;
 
         bool anyFirePlaying = false;
@@ -27,17 +30,27 @@ public class FireAudioManager : MonoBehaviour
             }
         }
 
-        // If any fire is burning → ensure audio is playing
+        // If any fire is burning → ensure both audios are playing
         if (anyFirePlaying && !audioPlaying)
         {
-            fireAudio.Play();
+            if (fireAudio != null && !fireAudio.isPlaying)
+                fireAudio.Play();
+
+            if (secondaryFireAudio != null && !secondaryFireAudio.isPlaying)
+                secondaryFireAudio.Play();
+
             audioPlaying = true;
         }
 
-        // If all fires are extinguished → stop the audio
+        // If all fires are extinguished → stop both audios
         if (!anyFirePlaying && audioPlaying)
         {
-            fireAudio.Stop();
+            if (fireAudio != null)
+                fireAudio.Stop();
+
+            if (secondaryFireAudio != null)
+                secondaryFireAudio.Stop();
+
             audioPlaying = false;
         }
     }
