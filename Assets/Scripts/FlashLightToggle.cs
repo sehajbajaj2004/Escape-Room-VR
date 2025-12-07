@@ -7,6 +7,9 @@ public class FlashlightToggle : MonoBehaviour
     [Header("Flashlight Light Object (Disabled at start)")]
     public GameObject lightObject;
 
+    [Header("UI To Enable When Torch is Grabbed")]
+    public GameObject uiObject;   // New UI reference
+
     [Header("XR Grab Interactable")]
     public XRGrabInteractable grabInteractable;
 
@@ -34,6 +37,9 @@ public class FlashlightToggle : MonoBehaviour
     {
         if (lightObject != null)
             lightObject.SetActive(false);   // start OFF
+
+        if (uiObject != null)
+            uiObject.SetActive(false);      // UI starts OFF
     }
 
     private void Update()
@@ -51,11 +57,19 @@ public class FlashlightToggle : MonoBehaviour
     private void OnGrabbed(SelectEnterEventArgs args)
     {
         isGrabbed = true;
+
+        // Enable UI when grabbed
+        if (uiObject != null)
+            uiObject.SetActive(true);
     }
 
     private void OnReleased(SelectExitEventArgs args)
     {
         isGrabbed = false;
+
+        // Disable UI when released
+        if (uiObject != null)
+            uiObject.SetActive(false);
     }
 
     private void ToggleLight()

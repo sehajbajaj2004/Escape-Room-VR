@@ -30,6 +30,11 @@ public class ShipActivationController : MonoBehaviour
     [Header("Scene Change Delay (Seconds)")]
     public float delayBeforeSceneChange = 3f;
 
+    [Header("UI Checkboxes")]
+    public GameObject steeringWheelCheckUI;
+    public GameObject keyCheckUI;
+    public GameObject fuelCheckUI;
+
     void Start()
     {
         steeringWheelSocket.selectEntered.AddListener(OnSteeringWheelPlaced);
@@ -39,6 +44,13 @@ public class ShipActivationController : MonoBehaviour
 
         if (boatRigidbody != null)
             boatRigidbody.isKinematic = true;
+
+        // --- Initialize UI ---
+        if (steeringWheelCheckUI) steeringWheelCheckUI.SetActive(false);
+        if (keyCheckUI) keyCheckUI.SetActive(false);
+
+        // Fuel is already filled → show it as checked
+        if (fuelCheckUI) fuelCheckUI.SetActive(true);
     }
 
     void OnSteeringWheelPlaced(SelectEnterEventArgs args)
@@ -46,6 +58,10 @@ public class ShipActivationController : MonoBehaviour
         if (args.interactableObject.transform.CompareTag("steering wheel"))
         {
             steeringWheelSnapped = true;
+
+            // Enable steering wheel checkmark UI
+            if (steeringWheelCheckUI)
+                steeringWheelCheckUI.SetActive(true);
         }
     }
 
@@ -54,6 +70,10 @@ public class ShipActivationController : MonoBehaviour
         if (args.interactableObject.transform.CompareTag("key"))
         {
             keySnapped = true;
+
+            // Enable key checkmark UI
+            if (keyCheckUI)
+                keyCheckUI.SetActive(true);
         }
     }
 
@@ -61,6 +81,10 @@ public class ShipActivationController : MonoBehaviour
     {
         fuelFilled = true;
         Debug.Log("Fuel has been filled!");
+
+        // Enable fuel checkmark UI
+        if (fuelCheckUI)
+            fuelCheckUI.SetActive(true);
     }
 
     void OnButtonPressed()
@@ -92,7 +116,7 @@ public class ShipActivationController : MonoBehaviour
 
     IEnumerator EnableBoatPhysicsAfterDelay()
     {
-        yield return new WaitForSeconds(1f);  // <--- Delay added
+        yield return new WaitForSeconds(1f);
 
         if (boatRigidbody != null)
         {

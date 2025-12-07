@@ -20,29 +20,49 @@ public class ExtinguisherSprayController : MonoBehaviour
     public XRGrabInteractable grabInteractable;
 
     [Header("Wood Object (Assign in Inspector)")]
-    public GameObject woodObject;   // <-- NEW: Drag the wood parent object here
+    public GameObject woodObject;
+
+    [Header("UI to Enable When Grabbed")]
+    public GameObject uiObject;     // <-- NEW UI object
 
     private HashSet<GameObject> extinguishedFires = new HashSet<GameObject>();
     private int fireCount = 0;
+    private bool isGrabbed = false;
 
     private void OnEnable()
     {
         if (leftTriggerAction != null) leftTriggerAction.action.Enable();
         if (rightTriggerAction != null) rightTriggerAction.action.Enable();
+
+        if (grabInteractable != null)
+        {
+            grabInteractable.selectEntered.AddListener(OnGrabbed);
+            grabInteractable.selectExited.AddListener(OnReleased);
+        }
     }
 
     private void OnDisable()
     {
         if (leftTriggerAction != null) leftTriggerAction.action.Disable();
         if (rightTriggerAction != null) rightTriggerAction.action.Disable();
+
+        if (grabInteractable != null)
+        {
+            grabInteractable.selectEntered.RemoveListener(OnGrabbed);
+            grabInteractable.selectExited.RemoveListener(OnReleased);
+        }
+    }
+
+    private void Start()
+    {
+        if (uiObject != null)
+            uiObject.SetActive(false);   // UI should be OFF initially
     }
 
     private void Update()
     {
         if (steamParticles == null || grabInteractable == null)
             return;
-
-        bool isGrabbed = grabInteractable.isSelected;
 
         float leftTrigger = leftTriggerAction != null ? leftTriggerAction.action.ReadValue<float>() : 0f;
         float rightTrigger = rightTriggerAction != null ? rightTriggerAction.action.ReadValue<float>() : 0f;
@@ -67,6 +87,24 @@ public class ExtinguisherSprayController : MonoBehaviour
         }
     }
 
+    private void OnGrabbed(SelectEnterEventArgs args)
+    {
+        isGrabbed = true;
+
+        // Enable UI when picked up
+        if (uiObject != null)
+            uiObject.SetActive(true);
+    }
+
+    private void OnReleased(SelectExitEventArgs args)
+    {
+        isGrabbed = false;
+
+        // Disable UI when released
+        if (uiObject != null)
+            uiObject.SetActive(false);
+    }
+
     private void OnParticleCollision(GameObject other)
     {
         if (!other.CompareTag("WildFire") || extinguishedFires.Contains(other))
@@ -80,21 +118,12 @@ public class ExtinguisherSprayController : MonoBehaviour
 
             Debug.Log($"{other.name} extinguished!");
 
-            // ✅ Disable wood object assigned in inspector
             if (woodObject != null)
-            {
                 woodObject.SetActive(false);
-            }
 
-            // Spawn steam effect
             if (steamPrefab != null)
             {
-                GameObject steam = Instantiate(
-                    steamPrefab,
-                    other.transform.position,
-                    other.transform.rotation
-                );
-
+                GameObject steam = Instantiate(steamPrefab, other.transform.position, other.transform.rotation);
                 steam.transform.localScale = other.transform.localScale;
 
                 ParticleSystem steamPS = steam.GetComponent<ParticleSystem>();
