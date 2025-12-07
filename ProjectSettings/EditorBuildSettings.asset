@@ -29,6 +29,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/L2 Cruise Scenes/BoatRow.unity
     guid: 861b4ff1065ba9645ad6ae871259de40
+  - enabled: 1
+    path: Assets/L3 Forest Scenes/Terrain New.unity
+    guid: fa1b2652926eeef498c4d842722438f6
+  - enabled: 1
+    path: Assets/L3 Forest Scenes/Cave.unity
+    guid: 17646da130c2abc449eaaa4ed64c0c9d
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 11cd5e32ba6cae84ea12aaf8e26bf312,
       type: 2}

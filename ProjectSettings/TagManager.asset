@@ -32,6 +32,14 @@ TagManager:
   - WindStatue
   - EarthStatue
   - LightningStatue
+  - LightningBolt
+  - VioletCrystal
+  - IndigoCrystal
+  - BlueCrystal
+  - GreenCrystal
+  - YellowCrystal
+  - OrangeCrystal
+  - RedCrystal
   layers:
   - Default
   - TransparentFX
