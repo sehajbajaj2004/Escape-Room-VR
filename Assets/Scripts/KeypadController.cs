@@ -1,121 +1,72 @@
 ﻿using UnityEngine;
+using TMPro;
 
 public class KeypadController : MonoBehaviour
 {
-    [Header("Password / Sequence Settings")]
-    [Tooltip("Sequence of digits (e.g. \"2401\").")]
-    [SerializeField] private string passSequence = "2401";
+    [Header("Password Settings")]
+    [SerializeField] private string correctPassword = "2401";
 
-    [Tooltip("Required number of presses for each digit.")]
-    [SerializeField] private int[] requiredPressCounts = new int[] { 2, 4, 0, 1 };
-
-    [Header("Indicators")]
-    [Tooltip("Red indicators for each digit in order.")]
-    public GameObject[] redIndicators;
-
-    [Tooltip("Green indicators for each digit in order.")]
-    public GameObject[] greenIndicators;
+    [Header("Display")]
+    public TMP_Text displayText;
 
     [Header("Door Animation")]
     [SerializeField] private Animator doorAnimator;
     [SerializeField] private string openTrigger = "Open";
 
-    [Header("Audio Feedback (Optional)")]
+    [Header("Audio (Optional)")]
     [SerializeField] private AudioSource buttonSound;
     [SerializeField] private AudioSource successSound;
     [SerializeField] private AudioSource errorSound;
 
-    private int currentIndex = 0;
-    private int currentPressCount = 0;
+    private string currentInput = "";
 
     private void Start()
     {
-        // Reset indicators at start
-        for (int i = 0; i < redIndicators.Length; i++)
-        {
-            if (redIndicators[i] != null) redIndicators[i].SetActive(true);
-            if (greenIndicators[i] != null) greenIndicators[i].SetActive(false);
-        }
-
-        TryAdvanceZeroPressDigits(); // auto-skip any 0-press digits
+        ResetDisplay();
     }
 
     public void EnterDigit(string digit)
     {
-        if (buttonSound != null) buttonSound.Play();
+        if (buttonSound != null)
+            buttonSound.Play();
 
-        // If sequence complete, ignore
-        if (currentIndex >= passSequence.Length)
+        // Accept only 4 digits max
+        if (currentInput.Length >= 4)
             return;
 
-        char expected = passSequence[currentIndex];
+        // Add digit and update display
+        currentInput += digit;
+        displayText.text = currentInput; // <-- NO ZEROES DURING INPUT
 
-        // Wrong digit → reset everything
-        if (digit[0] != expected)
+        // If 4 digits entered → check password
+        if (currentInput.Length == 4)
+            ValidatePassword();
+    }
+
+    private void ValidatePassword()
+    {
+        if (currentInput == correctPassword)
         {
-            if (errorSound != null) errorSound.Play();
-            ResetSequence();
-            return;
-        }
+            if (successSound != null)
+                successSound.Play();
 
-        // Correct digit pressed
-        currentPressCount++;
-
-        // If the required number of presses reached → update indicator
-        if (currentPressCount >= requiredPressCounts[currentIndex])
-        {
-            // Turn Red OFF, Green ON
-            if (redIndicators[currentIndex] != null)
-                redIndicators[currentIndex].SetActive(false);
-
-            if (greenIndicators[currentIndex] != null)
-                greenIndicators[currentIndex].SetActive(true);
-
-            currentIndex++;
-            currentPressCount = 0;
-
-            TryAdvanceZeroPressDigits();
-        }
-
-        // Entire sequence complete
-        if (currentIndex >= passSequence.Length)
-        {
-            if (successSound != null) successSound.Play();
             if (doorAnimator != null)
                 doorAnimator.SetTrigger(openTrigger);
 
-            ResetSequence();
+            // KEEP DISPLAY AS 2401
+        }
+        else
+        {
+            if (errorSound != null)
+                errorSound.Play();
+
+            ResetDisplay();
         }
     }
 
-    private void TryAdvanceZeroPressDigits()
+    private void ResetDisplay()
     {
-        while (currentIndex < passSequence.Length &&
-               requiredPressCounts[currentIndex] == 0)
-        {
-            // Turn indicators ON instantly for zero-press digits
-            if (redIndicators[currentIndex] != null)
-                redIndicators[currentIndex].SetActive(false);
-
-            if (greenIndicators[currentIndex] != null)
-                greenIndicators[currentIndex].SetActive(true);
-
-            currentIndex++;
-        }
-    }
-
-    private void ResetSequence()
-    {
-        currentIndex = 0;
-        currentPressCount = 0;
-
-        // Reset indicators
-        for (int i = 0; i < redIndicators.Length; i++)
-        {
-            if (redIndicators[i] != null) redIndicators[i].SetActive(true);
-            if (greenIndicators[i] != null) greenIndicators[i].SetActive(false);
-        }
-
-        TryAdvanceZeroPressDigits(); // handle zero-press digits again
+        currentInput = "";
+        displayText.text = "0000";  // Only at start or wrong password
     }
 }

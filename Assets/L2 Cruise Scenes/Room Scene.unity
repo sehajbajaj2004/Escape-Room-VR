@@ -3602,7 +3602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27f2892e67e9fd47aaa20610d610dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  digit: 1
+  digit: 7
   keypadController: {fileID: 476774913}
 --- !u!114 &295054070
 MonoBehaviour:
@@ -5213,18 +5213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cd772d0fa3c7c499b5effe63928bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passSequence: 2401
-  requiredPressCounts: 02000000040000000000000001000000
-  redIndicators:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  greenIndicators:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  correctPassword: 2401
+  displayText: {fileID: 774511481}
   doorAnimator: {fileID: 1589281021}
   openTrigger: Open
   buttonSound: {fileID: 0}
@@ -6739,6 +6729,7 @@ GameObject:
   - component: {fileID: 593566234}
   - component: {fileID: 593566233}
   - component: {fileID: 593566232}
+  - component: {fileID: 593566235}
   m_Layer: 0
   m_Name: Cube.007
   m_TagString: Untagged
@@ -6811,6 +6802,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &593566235
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593566231}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3329902420748629119, guid: f042d8b431842164a86fd4ec90672f90, type: 3}
 --- !u!1 &597685085
 GameObject:
   m_ObjectHideFlags: 0
@@ -6841,7 +6854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27f2892e67e9fd47aaa20610d610dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  digit: 1
+  digit: 8
   keypadController: {fileID: 476774913}
 --- !u!114 &597685087
 MonoBehaviour:
@@ -8136,7 +8149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27f2892e67e9fd47aaa20610d610dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  digit: 1
+  digit: 4
   keypadController: {fileID: 476774913}
 --- !u!114 &674011185
 MonoBehaviour:
@@ -9039,7 +9052,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0000
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -11300,7 +11313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27f2892e67e9fd47aaa20610d610dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  digit: 1
+  digit: 6
   keypadController: {fileID: 476774913}
 --- !u!114 &1104969557
 MonoBehaviour:
@@ -11478,7 +11491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27f2892e67e9fd47aaa20610d610dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  digit: 1
+  digit: 3
   keypadController: {fileID: 476774913}
 --- !u!114 &1120910462
 MonoBehaviour:
@@ -11771,7 +11784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27f2892e67e9fd47aaa20610d610dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  digit: 1
+  digit: 5
   keypadController: {fileID: 476774913}
 --- !u!114 &1237096200
 MonoBehaviour:
@@ -13884,7 +13897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27f2892e67e9fd47aaa20610d610dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  digit: 1
+  digit: 9
   keypadController: {fileID: 476774913}
 --- !u!114 &1440276780
 MonoBehaviour:
@@ -16357,7 +16370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27f2892e67e9fd47aaa20610d610dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  digit: 1
+  digit: 0
   keypadController: {fileID: 476774913}
 --- !u!114 &1663118114
 MonoBehaviour:
@@ -17313,7 +17326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1743472085
 Transform:
   m_ObjectHideFlags: 0
@@ -20982,7 +20995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27f2892e67e9fd47aaa20610d610dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  digit: 1
+  digit: 2
   keypadController: {fileID: 476774913}
 --- !u!33 &3469287837602795846
 MeshFilter:
@@ -21653,6 +21666,7 @@ GameObject:
   - component: {fileID: 9112385459557622433}
   - component: {fileID: 9112385459557622432}
   - component: {fileID: 9112385459557622431}
+  - component: {fileID: 9112385459557622434}
   m_Layer: 0
   m_Name: FlashLight
   m_TagString: Untagged
@@ -23362,6 +23376,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.0265467, y: 3.026547, z: 8.428309}
   m_Center: {x: -8.881784e-16, y: -0.0000019307686, z: 3.2141545}
+--- !u!114 &9112385459557622434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4796818977837987713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f29868c22810764f9ae7184731a1d62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightObject: {fileID: 1743472084}
+  grabInteractable: {fileID: 9112385459557622431}
+  aButtonAction: {fileID: 3014751432804677871, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

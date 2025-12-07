@@ -2758,6 +2758,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "torch",
+            "id": "a1f84cb3-6f33-46b0-aedf-88208a83e3ca",
+            "actions": [
+                {
+                    "name": "A button",
+                    "type": "Button",
+                    "id": "996e451b-e724-43f9-bc53-629b72d983e6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c5a7b889-2a4e-4f92-92db-744c2e45caab",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "A button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
