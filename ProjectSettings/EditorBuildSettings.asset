@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/L3 Forest Scenes/Cave.unity
     guid: 17646da130c2abc449eaaa4ed64c0c9d
+  - enabled: 1
+    path: Assets/L3 Forest Scenes/3. Broken Bridge/BridgeBroken.unity
+    guid: b596af4706f024542bfa326333901318
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 11cd5e32ba6cae84ea12aaf8e26bf312,
       type: 2}
