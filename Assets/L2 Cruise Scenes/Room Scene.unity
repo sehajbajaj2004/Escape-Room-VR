@@ -12213,7 +12213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c367e5691ec474c96aad5144cb5437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 5
+  sceneIndex: 8
   playerTag: Player
 --- !u!4 &1241216127
 Transform:

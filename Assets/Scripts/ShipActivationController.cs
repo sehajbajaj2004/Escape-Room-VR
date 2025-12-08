@@ -128,6 +128,6 @@ public class ShipActivationController : MonoBehaviour
     IEnumerator ChangeSceneAfterDelay()
     {
         yield return new WaitForSeconds(delayBeforeSceneChange);
-        SceneManager.LoadScene(7);
+        SceneManager.LoadScene(10);
     }
 }

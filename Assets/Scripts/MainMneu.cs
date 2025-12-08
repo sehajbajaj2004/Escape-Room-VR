@@ -3,10 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public string sceneName;
+
     // Called when Play button is clicked
     public void PlayGame()
     {
-        SceneManager.LoadScene("Level 1"); // make sure Level 1 is added to Build Settings
+        SceneManager.LoadScene(sceneName); // make sure Level 1 is added to Build Settings
     }
 
     // Called when Quit button is clicked
