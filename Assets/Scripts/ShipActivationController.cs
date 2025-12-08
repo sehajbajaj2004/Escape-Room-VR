@@ -14,7 +14,7 @@ public class ShipActivationController : MonoBehaviour
     private bool keySnapped = false;
 
     [Header("Fuel Requirement")]
-    public bool fuelFilled = true;   // TRUE by default
+    public bool fuelFilled = true;
 
     [Header("XR Push Button")]
     public XRPushButton pushButton;
@@ -35,6 +35,9 @@ public class ShipActivationController : MonoBehaviour
     public GameObject keyCheckUI;
     public GameObject fuelCheckUI;
 
+    // NEW: Animation delay
+    private float animationDelay = 5f;
+
     void Start()
     {
         steeringWheelSocket.selectEntered.AddListener(OnSteeringWheelPlaced);
@@ -45,12 +48,10 @@ public class ShipActivationController : MonoBehaviour
         if (boatRigidbody != null)
             boatRigidbody.isKinematic = true;
 
-        // --- Initialize UI ---
+        // UI initialization
         if (steeringWheelCheckUI) steeringWheelCheckUI.SetActive(false);
         if (keyCheckUI) keyCheckUI.SetActive(false);
-
-        // Fuel is already filled → show it as checked
-        if (fuelCheckUI) fuelCheckUI.SetActive(true);
+        if (fuelCheckUI) fuelCheckUI.SetActive(true); // fuel already full
     }
 
     void OnSteeringWheelPlaced(SelectEnterEventArgs args)
@@ -58,10 +59,7 @@ public class ShipActivationController : MonoBehaviour
         if (args.interactableObject.transform.CompareTag("steering wheel"))
         {
             steeringWheelSnapped = true;
-
-            // Enable steering wheel checkmark UI
-            if (steeringWheelCheckUI)
-                steeringWheelCheckUI.SetActive(true);
+            if (steeringWheelCheckUI) steeringWheelCheckUI.SetActive(true);
         }
     }
 
@@ -70,38 +68,22 @@ public class ShipActivationController : MonoBehaviour
         if (args.interactableObject.transform.CompareTag("key"))
         {
             keySnapped = true;
-
-            // Enable key checkmark UI
-            if (keyCheckUI)
-                keyCheckUI.SetActive(true);
+            if (keyCheckUI) keyCheckUI.SetActive(true);
         }
     }
 
     public void FuelFilled()
     {
         fuelFilled = true;
-        Debug.Log("Fuel has been filled!");
-
-        // Enable fuel checkmark UI
-        if (fuelCheckUI)
-            fuelCheckUI.SetActive(true);
+        if (fuelCheckUI) fuelCheckUI.SetActive(true);
     }
 
     void OnButtonPressed()
     {
         if (AllConditionsMet())
         {
-            // Play deck animations immediately
-            deckAnim1.SetTrigger(triggerName);
-            deckAnim2.SetTrigger(triggerName);
-
-            // Delay the boat physics activation by 1 second
-            StartCoroutine(EnableBoatPhysicsAfterDelay());
-
-            // Start delayed scene change
-            StartCoroutine(ChangeSceneAfterDelay());
-
-            Debug.Log("Ship deck opening triggered!");
+            Debug.Log("All conditions met — starting delayed animation sequence.");
+            StartCoroutine(DelayedActivationSequence());
         }
         else
         {
@@ -114,19 +96,25 @@ public class ShipActivationController : MonoBehaviour
         return steeringWheelSnapped && keySnapped && fuelFilled;
     }
 
-    IEnumerator EnableBoatPhysicsAfterDelay()
+    IEnumerator DelayedActivationSequence()
     {
-        yield return new WaitForSeconds(1f);
+        // ⏳ WAIT 5 seconds BEFORE playing animation
+        yield return new WaitForSeconds(animationDelay);
 
+        // 🎬 Trigger animation
+        deckAnim1.SetTrigger(triggerName);
+        deckAnim2.SetTrigger(triggerName);
+        Debug.Log("Ship deck animation triggered!");
+
+        // 🚤 Enable boat physics (1 second after animation → 1 + 5 = 6 seconds total)
+        yield return new WaitForSeconds(1f);
         if (boatRigidbody != null)
         {
             boatRigidbody.isKinematic = false;
-            Debug.Log("Boat physics activated after delay!");
+            Debug.Log("Boat physics activated!");
         }
-    }
 
-    IEnumerator ChangeSceneAfterDelay()
-    {
+        // 🌊 Load scene after original delay + extra 5 seconds
         yield return new WaitForSeconds(delayBeforeSceneChange);
         SceneManager.LoadScene(10);
     }

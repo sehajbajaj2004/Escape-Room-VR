@@ -62999,6 +62999,7 @@ GameObject:
   - component: {fileID: 2512227060601687682}
   - component: {fileID: 6397408701431499563}
   - component: {fileID: 4487685457243261155}
+  - component: {fileID: 9167803361653857605}
   m_Layer: 0
   m_Name: Bars
   m_TagString: Untagged
@@ -63006,6 +63007,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!64 &9167803361653857605
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9167803361653857604}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3371827001348983477, guid: 63e73bdf2d73e0a42ab8aaae080e9e96, type: 3}
 --- !u!33 &9170846853588197955
 MeshFilter:
   m_ObjectHideFlags: 0
